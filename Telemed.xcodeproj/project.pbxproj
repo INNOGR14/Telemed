@@ -8,22 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88282921CD75B400513343 /* AppDelegate.swift */; };
-		FA88282C21CD75B400513343 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88282B21CD75B400513343 /* ViewController.swift */; };
 		FA88282F21CD75B400513343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88282D21CD75B400513343 /* Main.storyboard */; };
 		FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA88283021CD75B400513343 /* Telemed.xcdatamodeld */; };
 		FA88283421CD75B600513343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA88283321CD75B600513343 /* Assets.xcassets */; };
 		FA88283721CD75B600513343 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88283521CD75B600513343 /* LaunchScreen.storyboard */; };
+		FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284721CD861D00513343 /* RegisterViewController.swift */; };
+		FA88284A21CD863200513343 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284921CD863200513343 /* LoginViewController.swift */; };
+		FA88284C21CD865900513343 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284B21CD865900513343 /* HomeViewController.swift */; };
+		FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284D21CD868800513343 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FA88282621CD75B400513343 /* Telemed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telemed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA88282921CD75B400513343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FA88282B21CD75B400513343 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FA88282E21CD75B400513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA88283121CD75B400513343 /* Telemed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Telemed.xcdatamodel; sourceTree = "<group>"; };
 		FA88283321CD75B600513343 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA88283621CD75B600513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA88283821CD75B600513343 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA88284721CD861D00513343 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		FA88284921CD863200513343 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FA88284B21CD865900513343 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FA88284D21CD868800513343 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +62,42 @@
 		FA88282821CD75B400513343 /* Telemed */ = {
 			isa = PBXGroup;
 			children = (
-				FA88282921CD75B400513343 /* AppDelegate.swift */,
-				FA88282B21CD75B400513343 /* ViewController.swift */,
-				FA88282D21CD75B400513343 /* Main.storyboard */,
+				FA88284021CD7AA100513343 /* Controller */,
+				FA88283F21CD7A9300513343 /* View */,
+				FA88283E21CD7A2800513343 /* Model */,
 				FA88283321CD75B600513343 /* Assets.xcassets */,
 				FA88283521CD75B600513343 /* LaunchScreen.storyboard */,
 				FA88283821CD75B600513343 /* Info.plist */,
 				FA88283021CD75B400513343 /* Telemed.xcdatamodeld */,
 			);
 			path = Telemed;
+			sourceTree = "<group>";
+		};
+		FA88283E21CD7A2800513343 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA88283F21CD7A9300513343 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA88282D21CD75B400513343 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA88284021CD7AA100513343 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA88284B21CD865900513343 /* HomeViewController.swift */,
+				FA88282921CD75B400513343 /* AppDelegate.swift */,
+				FA88284721CD861D00513343 /* RegisterViewController.swift */,
+				FA88284921CD863200513343 /* LoginViewController.swift */,
+				FA88284D21CD868800513343 /* WelcomeViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +171,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA88282C21CD75B400513343 /* ViewController.swift in Sources */,
+				FA88284C21CD865900513343 /* HomeViewController.swift in Sources */,
+				FA88284A21CD863200513343 /* LoginViewController.swift in Sources */,
+				FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */,
+				FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */,
 				FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */,
 				FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */,
 			);
