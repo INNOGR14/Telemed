@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A9B49E47CC2C332D1934398 /* Pods_Telemed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */; };
 		FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88282921CD75B400513343 /* AppDelegate.swift */; };
 		FA88282F21CD75B400513343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88282D21CD75B400513343 /* Main.storyboard */; };
 		FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA88283021CD75B400513343 /* Telemed.xcdatamodeld */; };
@@ -16,9 +17,15 @@
 		FA88284A21CD863200513343 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284921CD863200513343 /* LoginViewController.swift */; };
 		FA88284C21CD865900513343 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284B21CD865900513343 /* HomeViewController.swift */; };
 		FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284D21CD868800513343 /* WelcomeViewController.swift */; };
+		FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88285021CE377D00513343 /* HomeTableViewCell.swift */; };
+		FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA88285121CE377D00513343 /* HomeTableViewCell.xib */; };
+		FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB662F021CE46C300297FCD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1601C7B7FC4CBBDBC8B599C9 /* Pods-Telemed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Telemed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Telemed/Pods-Telemed.debug.xcconfig"; sourceTree = "<group>"; };
+		D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Telemed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E722E3407BAD33D7E718556E /* Pods-Telemed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Telemed.release.xcconfig"; path = "Pods/Target Support Files/Pods-Telemed/Pods-Telemed.release.xcconfig"; sourceTree = "<group>"; };
 		FA88282621CD75B400513343 /* Telemed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telemed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA88282921CD75B400513343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA88282E21CD75B400513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,6 +37,9 @@
 		FA88284921CD863200513343 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FA88284B21CD865900513343 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FA88284D21CD868800513343 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		FA88285021CE377D00513343 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		FA88285121CE377D00513343 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		FAB662F021CE46C300297FCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +47,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A9B49E47CC2C332D1934398 /* Pods_Telemed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AB826FBF91AE21686D87D8D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EFE5DD36C20CDE968EA614C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1601C7B7FC4CBBDBC8B599C9 /* Pods-Telemed.debug.xcconfig */,
+				E722E3407BAD33D7E718556E /* Pods-Telemed.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FA88281D21CD75B400513343 = {
 			isa = PBXGroup;
 			children = (
 				FA88282821CD75B400513343 /* Telemed */,
 				FA88282721CD75B400513343 /* Products */,
+				EFE5DD36C20CDE968EA614C4 /* Pods */,
+				8AB826FBF91AE21686D87D8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,13 +92,14 @@
 		FA88282821CD75B400513343 /* Telemed */ = {
 			isa = PBXGroup;
 			children = (
+				FA88283821CD75B600513343 /* Info.plist */,
+				FAB662EF21CE468400297FCD /* Supporting Files */,
+				FA88284F21CE375300513343 /* Custom Cells */,
 				FA88284021CD7AA100513343 /* Controller */,
 				FA88283F21CD7A9300513343 /* View */,
 				FA88283E21CD7A2800513343 /* Model */,
 				FA88283321CD75B600513343 /* Assets.xcassets */,
 				FA88283521CD75B600513343 /* LaunchScreen.storyboard */,
-				FA88283821CD75B600513343 /* Info.plist */,
-				FA88283021CD75B400513343 /* Telemed.xcdatamodeld */,
 			);
 			path = Telemed;
 			sourceTree = "<group>";
@@ -100,6 +131,24 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		FA88284F21CE375300513343 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA88285021CE377D00513343 /* HomeTableViewCell.swift */,
+				FA88285121CE377D00513343 /* HomeTableViewCell.xib */,
+			);
+			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		FAB662EF21CE468400297FCD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAB662F021CE46C300297FCD /* GoogleService-Info.plist */,
+				FA88283021CD75B400513343 /* Telemed.xcdatamodeld */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,9 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA88283B21CD75B600513343 /* Build configuration list for PBXNativeTarget "Telemed" */;
 			buildPhases = (
+				A9A48E5519B411FD731D0839 /* [CP] Check Pods Manifest.lock */,
 				FA88282221CD75B400513343 /* Sources */,
 				FA88282321CD75B400513343 /* Frameworks */,
 				FA88282421CD75B400513343 /* Resources */,
+				9DA7CF3C98140B83D0C9BCCD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,13 +209,72 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */,
 				FA88283721CD75B600513343 /* LaunchScreen.storyboard in Resources */,
 				FA88283421CD75B600513343 /* Assets.xcassets in Resources */,
+				FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */,
 				FA88282F21CD75B400513343 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9DA7CF3C98140B83D0C9BCCD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Telemed/Pods-Telemed-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Telemed/Pods-Telemed-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A9A48E5519B411FD731D0839 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Telemed-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FA88282221CD75B400513343 /* Sources */ = {
@@ -173,6 +283,7 @@
 			files = (
 				FA88284C21CD865900513343 /* HomeViewController.swift in Sources */,
 				FA88284A21CD863200513343 /* LoginViewController.swift in Sources */,
+				FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */,
 				FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */,
 				FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */,
 				FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */,
@@ -320,6 +431,7 @@
 		};
 		FA88283C21CD75B600513343 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1601C7B7FC4CBBDBC8B599C9 /* Pods-Telemed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -337,6 +449,7 @@
 		};
 		FA88283D21CD75B600513343 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E722E3407BAD33D7E718556E /* Pods-Telemed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
