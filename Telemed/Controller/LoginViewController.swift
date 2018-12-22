@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SwiftyJSON
+import Alamofire
 
 class LoginViewController: UIViewController {
 
@@ -28,18 +30,45 @@ class LoginViewController: UIViewController {
         
         SVProgressHUD.show()
         
-        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            if error != nil {
-                print("Error registering: \(error!)")
-                SVProgressHUD.dismiss()
+        let parametersDict : [String : Any] = ["username" : emailTextField.text!, "password" : passwordTextField.text!]
+        
+        Alamofire.request("https://ide50-nobodysp.cs50.io:8080/login", method: .post, parameters: parametersDict, encoding: JSONEncoding.default).responseJSON { (response) in
+            
+            print(response)
+            
+            let responseState = JSON(response.result.value!)["result"].bool
+            
+            if responseState == true {
+//                self.callSegue()
             }
             else {
-                print("success")
-                self.performSegue(withIdentifier: "goToHome", sender: self)
-                SVProgressHUD.dismiss()
+                let action = UIAlertAction(title: "Try again", style: .default, handler: nil)
+                let message = JSON(response.result.value!)["message"].string
+                let alert = UIAlertController(title: "Login failed", message: message, preferredStyle: .alert)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
             }
+            
+            SVProgressHUD.dismiss()
+            
         }
         
+//        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+//            if error != nil {
+//                print("Error registering: \(error!)")
+//                SVProgressHUD.dismiss()
+//            }
+//            else {
+//                print("success")
+//                self.performSegue(withIdentifier: "goToHome", sender: self)
+//                SVProgressHUD.dismiss()
+//            }
+//        }
+        
+    }
+    
+    func callSegue() {
+        performSegue(withIdentifier: "goToHome", sender: self)
     }
     
 }

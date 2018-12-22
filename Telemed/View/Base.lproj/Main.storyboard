@@ -193,6 +193,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1t-7A-cMb">
+                                <rect key="frame" x="62" y="64" width="251" height="139"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -212,6 +219,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="homeTableView" destination="gO9-6Y-Q9a" id="rmQ-jV-uui"/>
+                        <outlet property="testLabel" destination="m1t-7A-cMb" id="FuT-MO-ipq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ToZ-0U-e7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -324,6 +332,6 @@
         <image name="welcomeBackground" width="1024" height="723"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LWQ-VO-qtb"/>
+        <segue reference="Feo-4R-fjV"/>
     </inferredMetricsTieBreakers>
 </document>

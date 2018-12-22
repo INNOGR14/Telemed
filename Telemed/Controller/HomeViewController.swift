@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Alamofire
+import SwiftyJSON
 
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -18,6 +20,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     @IBOutlet weak var homeTableView: UITableView!
+    @IBOutlet weak var testLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -27,6 +30,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         homeTableView.dataSource = self
         
         homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "homeCell")
+        
+        getData()
         
     }
     
@@ -54,6 +59,55 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
     }
+    
+    func getData() {
+        Alamofire.request("https://ide50-nobodysp.cs50.io:8080/", method: .get).responseJSON{ (response) in
+            print(response)
+            if response.result.isSuccess {
+                self.testLabel.text = JSON(response.result.value!)["hello"].string
+            }
+            else {
+                print("Error retrieving info: \(response)")
+            }
+        }
+    }
+    
+//    func getData() {
+//        Alamofire.request("https://telemedapp.000webhostapp.com/checkusers.php", method: .get).responseString
+//            { response in
+//                let dictText = self.deleteString(response.description)
+//                let dict = self.convertToDictionary(text: dictText)
+//                self.testLabel.text = dict!["username"]! as! String
+//
+//        }
+//    }
+//
+//    func deleteString(_ string: String) -> String {
+//        var smth = string
+//
+//        if let index = (smth.range(of: "[")?.upperBound)
+//        {
+//            smth = String(smth.suffix(from: index))
+//        }
+//
+//        if let index = (smth.range(of: "]")?.lowerBound)
+//        {
+//            smth = String(smth.prefix(upTo: index))
+//        }
+//
+//        return smth
+//    }
+//
+//    func convertToDictionary(text: String) -> [String: Any]? {
+//        if let data = text.data(using: .utf8) {
+//            do {
+//                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//        return nil
+//    }
     
 
 }
