@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A9B49E47CC2C332D1934398 /* Pods_Telemed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */; };
+		FA4D8A5921CF3ECD00FFA9D4 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */; };
 		FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88282921CD75B400513343 /* AppDelegate.swift */; };
 		FA88282F21CD75B400513343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88282D21CD75B400513343 /* Main.storyboard */; };
 		FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA88283021CD75B400513343 /* Telemed.xcdatamodeld */; };
@@ -26,6 +27,7 @@
 		1601C7B7FC4CBBDBC8B599C9 /* Pods-Telemed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Telemed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Telemed/Pods-Telemed.debug.xcconfig"; sourceTree = "<group>"; };
 		D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Telemed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E722E3407BAD33D7E718556E /* Pods-Telemed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Telemed.release.xcconfig"; path = "Pods/Target Support Files/Pods-Telemed/Pods-Telemed.release.xcconfig"; sourceTree = "<group>"; };
+		FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		FA88282621CD75B400513343 /* Telemed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telemed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA88282921CD75B400513343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA88282E21CD75B400513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA4D8A5921CF3ECD00FFA9D4 /* LocalAuthentication.framework in Frameworks */,
 				4A9B49E47CC2C332D1934398 /* Pods_Telemed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,6 +60,7 @@
 		8AB826FBF91AE21686D87D8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */,
 				D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */,
 			);
 			name = Frameworks;
