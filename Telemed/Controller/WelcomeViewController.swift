@@ -12,13 +12,16 @@ import LocalAuthentication
 class WelcomeViewController: UIViewController {
 
 let localAuthenticationContext = LAContext()
+
+let appDelegate = UIApplication.shared.delegate! as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        authenticateUser()
+        if appDelegate.loginInfo["state"]! as! Bool == false {
+            authenticationWithTouchID()
+        }
     }
     
 
@@ -44,15 +47,17 @@ extension WelcomeViewController {
         var authError: NSError?
         let reasonString = "To access the secure data"
         
-        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &authError) {
             
-            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reasonString) { success, evaluateError in
                 
                 if success {
                     
                     //TODO: User authenticated successfully, take appropriate action
                     
                     print("User authenticated successfully")
+                    
+                    
                     
                 } else {
                     //TODO: User did not authenticate successfully, look at error and take appropriate action
@@ -149,23 +154,24 @@ extension WelcomeViewController {
         return message
     }
     
-    func authenticateUser() {
-        let context = LAContext()
-    
-        context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { [weak self] (success, error) in
-            
-    
-            guard success else {
-                DispatchQueue.main.async() {
-            // show something here to block the user from continuing
-            }
-            
-            return
-            }
-            
-            DispatchQueue.main.async() {
-            // do something here to continue loading your app, e.g. call a delegate method
-            }
-    }
-    }
+//    func authenticateUser() {
+//        let context = LAContext()
+//
+//        context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { [weak self] (success, error) in
+//
+//
+//            guard success else {
+//                DispatchQueue.main.async() {
+//            // show something here to block the user from continuing
+//            }
+//
+//            return
+//            }
+//
+//            DispatchQueue.main.async() {
+//            // do something here to continue loading your app, e.g. call a delegate method
+//            }
+//
+//        }
+//    }
 }

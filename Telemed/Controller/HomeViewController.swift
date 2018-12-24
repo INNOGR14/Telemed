@@ -18,7 +18,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let tableArray = ["FAQ", "Drugs", "Appointments"]
     
-    
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var testLabel: UILabel!
     
@@ -43,7 +42,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath) as! HomeTableViewCell
-        cell.textDescription.text = tableArray[indexPath.row]
+//        cell.textDescription.text = tableArray[indexPath.row]
         return cell
     }
     
@@ -51,12 +50,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
         
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-        } catch let signOutError as NSError {
-            print("Error signing out: \(signOutError)")
-        }
+        
+        
+        
+//        do {
+//            try Auth.auth().signOut()
+//            navigationController?.popToRootViewController(animated: true)
+//        } catch let signOutError as NSError {
+//            print("Error signing out: \(signOutError)")
+//        }
         
     }
     

@@ -16,6 +16,7 @@ class HomeTableViewCell: UITableViewCell {
     }
 
     
-    @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet weak var textDescription: UILabel!
+    @IBOutlet weak var taskTime: UILabel!
+    
+    @IBOutlet weak var taskInfo: UILabel!
 }

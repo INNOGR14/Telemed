@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		4A9B49E47CC2C332D1934398 /* Pods_Telemed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */; };
 		FA4D8A5921CF3ECD00FFA9D4 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */; };
+		FA76ABDF21D14ED1001E1689 /* AppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76ABDD21D14ED1001E1689 /* AppointmentTableViewCell.swift */; };
+		FA76ABE021D14ED1001E1689 /* AppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA76ABDE21D14ED1001E1689 /* AppointmentTableViewCell.xib */; };
+		FA76ABE221D15144001E1689 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76ABE121D15144001E1689 /* HomePageViewController.swift */; };
+		FA76ABE621D18751001E1689 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76ABE521D18751001E1689 /* ProfileViewController.swift */; };
+		FA76ABE821D19146001E1689 /* AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76ABE721D19146001E1689 /* AppointmentViewController.swift */; };
 		FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88282921CD75B400513343 /* AppDelegate.swift */; };
 		FA88282F21CD75B400513343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88282D21CD75B400513343 /* Main.storyboard */; };
 		FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA88283021CD75B400513343 /* Telemed.xcdatamodeld */; };
@@ -28,6 +33,11 @@
 		D74084ECC594BA5966EFE10B /* Pods_Telemed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Telemed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E722E3407BAD33D7E718556E /* Pods-Telemed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Telemed.release.xcconfig"; path = "Pods/Target Support Files/Pods-Telemed/Pods-Telemed.release.xcconfig"; sourceTree = "<group>"; };
 		FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		FA76ABDD21D14ED1001E1689 /* AppointmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentTableViewCell.swift; sourceTree = "<group>"; };
+		FA76ABDE21D14ED1001E1689 /* AppointmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppointmentTableViewCell.xib; sourceTree = "<group>"; };
+		FA76ABE121D15144001E1689 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		FA76ABE521D18751001E1689 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FA76ABE721D19146001E1689 /* AppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentViewController.swift; sourceTree = "<group>"; };
 		FA88282621CD75B400513343 /* Telemed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telemed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA88282921CD75B400513343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA88282E21CD75B400513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,6 +141,9 @@
 				FA88284721CD861D00513343 /* RegisterViewController.swift */,
 				FA88284921CD863200513343 /* LoginViewController.swift */,
 				FA88284D21CD868800513343 /* WelcomeViewController.swift */,
+				FA76ABE121D15144001E1689 /* HomePageViewController.swift */,
+				FA76ABE521D18751001E1689 /* ProfileViewController.swift */,
+				FA76ABE721D19146001E1689 /* AppointmentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -140,6 +153,8 @@
 			children = (
 				FA88285021CE377D00513343 /* HomeTableViewCell.swift */,
 				FA88285121CE377D00513343 /* HomeTableViewCell.xib */,
+				FA76ABDD21D14ED1001E1689 /* AppointmentTableViewCell.swift */,
+				FA76ABDE21D14ED1001E1689 /* AppointmentTableViewCell.xib */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -218,6 +233,7 @@
 				FA88283421CD75B600513343 /* Assets.xcassets in Resources */,
 				FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */,
 				FA88282F21CD75B400513343 /* Main.storyboard in Resources */,
+				FA76ABE021D14ED1001E1689 /* AppointmentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +307,11 @@
 			files = (
 				FA88284C21CD865900513343 /* HomeViewController.swift in Sources */,
 				FA88284A21CD863200513343 /* LoginViewController.swift in Sources */,
+				FA76ABE621D18751001E1689 /* ProfileViewController.swift in Sources */,
+				FA76ABE821D19146001E1689 /* AppointmentViewController.swift in Sources */,
+				FA76ABE221D15144001E1689 /* HomePageViewController.swift in Sources */,
 				FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */,
+				FA76ABDF21D14ED1001E1689 /* AppointmentTableViewCell.swift in Sources */,
 				FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */,
 				FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */,
 				FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */,
