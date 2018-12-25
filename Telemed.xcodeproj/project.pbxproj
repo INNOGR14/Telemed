@@ -25,6 +25,8 @@
 		FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284D21CD868800513343 /* WelcomeViewController.swift */; };
 		FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88285021CE377D00513343 /* HomeTableViewCell.swift */; };
 		FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA88285121CE377D00513343 /* HomeTableViewCell.xib */; };
+		FA8B844821D2399800CD4721 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B844721D2399800CD4721 /* HistoryViewController.swift */; };
+		FA8B844C21D2D25100CD4721 /* WeightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B844B21D2D25100CD4721 /* WeightData.swift */; };
 		FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB662F021CE46C300297FCD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		FA88284D21CD868800513343 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		FA88285021CE377D00513343 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FA88285121CE377D00513343 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		FA8B844721D2399800CD4721 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		FA8B844B21D2D25100CD4721 /* WeightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightData.swift; sourceTree = "<group>"; };
 		FAB662F021CE46C300297FCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +125,7 @@
 		FA88283E21CD7A2800513343 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA8B844B21D2D25100CD4721 /* WeightData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				FA76ABE121D15144001E1689 /* HomePageViewController.swift */,
 				FA76ABE521D18751001E1689 /* ProfileViewController.swift */,
 				FA76ABE721D19146001E1689 /* AppointmentViewController.swift */,
+				FA8B844721D2399800CD4721 /* HistoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -251,8 +257,12 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Telemed/Pods-Telemed-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/ChartsRealm/ChartsRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -264,8 +274,12 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChartsRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -308,6 +322,7 @@
 				FA88284C21CD865900513343 /* HomeViewController.swift in Sources */,
 				FA88284A21CD863200513343 /* LoginViewController.swift in Sources */,
 				FA76ABE621D18751001E1689 /* ProfileViewController.swift in Sources */,
+				FA8B844821D2399800CD4721 /* HistoryViewController.swift in Sources */,
 				FA76ABE821D19146001E1689 /* AppointmentViewController.swift in Sources */,
 				FA76ABE221D15144001E1689 /* HomePageViewController.swift in Sources */,
 				FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */,
@@ -316,6 +331,7 @@
 				FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */,
 				FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */,
 				FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */,
+				FA8B844C21D2D25100CD4721 /* WeightData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
