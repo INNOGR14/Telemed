@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        FirebaseApp.configure()
         loginInfo["state"] = false
         loginInfo["userID"] = ""
+        
+        let realm = try! Realm()
+        print(realm.configuration.fileURL)
+        
         return true
     }
 

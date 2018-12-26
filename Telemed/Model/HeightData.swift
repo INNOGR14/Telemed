@@ -1,5 +1,5 @@
 //
-//  WeightData.swift
+//  HeightData.swift
 //  Telemed
 //
 //  Created by Macbook on 12/26/18.
@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class WeightData : Object {
+class HeightData : Object {
     
     @objc dynamic var datetime : Date = Date()
     @objc dynamic var data : Double = 0.0
