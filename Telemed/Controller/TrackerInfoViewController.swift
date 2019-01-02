@@ -12,7 +12,7 @@ import Alamofire
 import SCLAlertView
 import ChameleonFramework
 
-class TrackerInfoViewController: UIViewController, UITextFieldDelegate {
+class TrackerInfoViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateField: UITextField!
@@ -25,19 +25,26 @@ class TrackerInfoViewController: UIViewController, UITextFieldDelegate {
     
     var titleText = ""
     var infoFieldText = ""
-    var tracker: TrackerEnum?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var username = ""
+    var password = ""
     
     let datePickerView = UIDatePicker()
     let timePickerView = UIDatePicker()
     
     let realm = try! Realm()
     
+    var selectedTracker : Trackers?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        username = appDelegate.loginInfo["username"] as! String
+        password = appDelegate.loginInfo["password"] as! String
         
+        titleText = selectedTracker?.name ?? "No tracker"
+        infoFieldText = selectedTracker?.name ?? "No tracker"
         
         dateField.delegate = self
         timeField.delegate = self
@@ -98,62 +105,64 @@ class TrackerInfoViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func addButtonPressed(_ sender: Any) {
+        
+        if let currentTracker = selectedTracker {
             
-        switch tracker!.type {
-            
-            case .glucose:
+            do {
+
+                try realm.write {
+    
+                    let newItem = Items()
+                    var canAppend = true
+                    newItem.byPT = true
+                    newItem.creator = "PT"
+                    newItem.updated = false
+                    newItem.data = infoToDouble()
+                    newItem.datetime = textToDate()
+                    newItem.notes = notesField.text!
+                    newItem.uuid = UUID().uuidString
+                    newItem.compoundKey = dateField.text! + " " + timeField.text! + String(true)
+                    
+                    if let tracker = selectedTracker {
+                        
+                        for item in tracker.items {
+                            
+                            if item.compoundKey == newItem.compoundKey {
+                                canAppend = false
+                                break
+                            }
+                        }
+                    }
+                    
+                    if canAppend {
+                        
+                        currentTracker.items.append(newItem)
+                        currentTracker.needUpdate = true
+                        
+                        infoField.text = ""
+                        notesField.text = ""
+                        SCLAlertView().showSuccess("Success!", subTitle: "Data added")
+                        SyncData.syncUpdate(username: username, password: password, realm: realm, fromServer: false)
+                    }
+                    else {
+                        SCLAlertView().showError("Failed", subTitle: "\(selectedTracker!.name) data at at this time already exists. Please change the time.")
+                    }
+                    
+                }
                 
-                let newData = GlucoseData()
-                newData.data = infoToDouble()
-                newData.datetime = textToDate()
-                newData.notes = notesField.text!
-                save(newData)
-            
-            case .pressure:
+            } catch {
                 
-                let newData = PressureData()
-                newData.data = infoToDouble()
-                newData.datetime = textToDate()
-                newData.notes = notesField.text!
-                save(newData)
-            
-            case .oxygen:
-                
-                let newData = OxygenData()
-                newData.data = infoToDouble()
-                newData.datetime = textToDate()
-                newData.notes = notesField.text!
-                save(newData)
-            
-            case .pulse:
-            
-                let newData = PulseData()
-                newData.data = infoToDouble()
-                newData.datetime = textToDate()
-                newData.notes = notesField.text!
-                save(newData)
-            
-            case .height:
-            
-                let newData = HeightData()
-                newData.data = infoToDouble()
-                newData.datetime = textToDate()
-                newData.notes = notesField.text!
-                save(newData)
-            
-            case .weight:
-                
-                let newData = WeightData()
-                newData.data = infoToDouble()
-                newData.datetime = textToDate()
-                newData.notes = notesField.text!
-                save(newData)
+                print("Error adding new item: \(error)")
+                SCLAlertView().showError("Failed", subTitle: "Error adding new data \nPlease try again")
+            }
             
         }
+        else {
+            print("No tracker set")
+            SCLAlertView().showError("Failed", subTitle: "No tracker selected \nPlease go back and add a tracker")
+        }
+        
         endEditing()
-        infoField.text = ""
-        notesField.text = ""
-        SCLAlertView().showSuccess("Success!", subTitle: "Data added")
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -185,7 +194,44 @@ class TrackerInfoViewController: UIViewController, UITextFieldDelegate {
     @objc func ViewTapped() {
         endEditing()
     }
+
+    //Convert text in textfield to date type
+    func textToDate() -> Date {
+        
+        let saveFormatter = DateFormatter()
+        saveFormatter.dateFormat = "dd MMM yyyy hh:mm a"
+        saveFormatter.timeZone = TimeZone(abbreviation: "GMT+07:00")
+        
+        let dateTimeString = dateField.text! + " " + timeField.text!
+        
+        guard let date = saveFormatter.date(from: dateTimeString) else {
+            fatalError()
+        }
+        
+        return date
+        
+    }
     
+    //Convert text in infoField to double type
+    func infoToDouble() -> Double {
+        
+        guard let data = infoField.text!.toDouble() else {
+            fatalError()
+        }
+        
+        return data
+    }
+    
+    func endEditing() {
+        dateField.endEditing(true)
+        timeField.endEditing(true)
+        infoField.endEditing(true)
+        notesField.endEditing(true)
+    }
+    
+}
+
+extension TrackerInfoViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
@@ -211,59 +257,17 @@ class TrackerInfoViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    func textToDate() -> Date {
-        
-        let saveFormatter = DateFormatter()
-        saveFormatter.dateFormat = "dd MMM yyyy hh:mm a"
-        saveFormatter.timeZone = TimeZone(abbreviation: "GMT+07:00")
-        
-        let dateTimeString = dateField.text! + " " + timeField.text!
-        
-        guard let date = saveFormatter.date(from: dateTimeString) else {
-            fatalError()
-        }
-        
-        return date
-        
-    }
-    
-    func infoToDouble() -> Double {
-        
-        guard let data = infoField.text!.toDouble() else {
-            fatalError()
-        }
-        
-        return data
-        
-    }
-    
-    func save(_ dataItem: Object) {
-        
-        do {
-            try realm.write {
-                realm.add(dataItem)
-            }
-        } catch {
-            print("Error saving: \(error)")
-        }
-        
-    }
-    
-    func endEditing() {
-        dateField.endEditing(true)
-        timeField.endEditing(true)
-        infoField.endEditing(true)
-        notesField.endEditing(true)
-    }
-    
 }
 
+
+//MARK: - Format Number
 extension String {
     func toDouble() -> Double? {
         return NumberFormatter().number(from: self)?.doubleValue
     }
 }
 
+//MARK: - Done button
 extension UIToolbar {
     
     func ToolbarPiker(mySelect : Selector) -> UIToolbar {
@@ -283,5 +287,6 @@ extension UIToolbar {
         
         return toolBar
     }
+    
 }
 

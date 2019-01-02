@@ -9,8 +9,9 @@
 import UIKit
 import ChameleonFramework
 import RealmSwift
+import SCLAlertView
 
-class TrackerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class TrackerViewController: UIViewController {
     
     @IBOutlet weak var trackerCollectionView: UICollectionView!
     
@@ -18,27 +19,19 @@ class TrackerViewController: UIViewController, UICollectionViewDataSource, UICol
     fileprivate let itemsPerRow: CGFloat = 2
     fileprivate let rows: CGFloat = 3
     
+    let realm = try! Realm()
     
-    let trackerItems : [TrackerEnum] = [
-        
-        TrackerEnum("Blood\nGlucose", TrackerEnum.trackerData.glucose),
-        TrackerEnum("Blood\nPressure", TrackerEnum.trackerData.pressure),
-        TrackerEnum("Blood\nO2", TrackerEnum.trackerData.oxygen),
-        TrackerEnum("Pulse", TrackerEnum.trackerData.pulse),
-        TrackerEnum("Height", TrackerEnum.trackerData.height),
-        TrackerEnum("Weight", TrackerEnum.trackerData.weight)
-        
-    ]
+    var trackers : Results<Trackers>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    
+        
+        loadCategories()
         trackerCollectionView.delegate = self
         trackerCollectionView.dataSource = self
         trackerCollectionView.register(UINib(nibName: "TrackerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "trackerCell")
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,34 +40,58 @@ class TrackerViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if let indexPath = trackerCollectionView.indexPathsForSelectedItems {
             
-            let string = String(trackerItems[indexPath[0].row].name.map {
-                $0 == "\n" ? " " : $0
-            })
+
+            destinationVC.titleText = trackers?[indexPath[0].row].name ?? "No tracker"
+            destinationVC.infoFieldText = trackers?[indexPath[0].row].name ?? "No tracker"
             
-            destinationVC.titleText = string
-            destinationVC.infoFieldText = string
-            destinationVC.tracker = trackerItems[indexPath[0].row]
-            
+            destinationVC.selectedTracker = trackers?[indexPath[0].row]
         }
-        
     }
+    
+    func loadCategories() {
+        
+        trackers = realm.objects(Trackers.self)
+    }
+}
+
+extension TrackerViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "goToTrackerInfo", sender: self)
+        if (trackers != nil) {
+            
+            performSegue(withIdentifier: "goToTrackerInfo", sender: self)
+        }
+        else {
+            
+            SCLAlertView().showError("No trackers", subTitle: "Please add trackers first")
+        }
         
         collectionView.deselectItem(at: indexPath, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return trackerItems.count
+        return trackers?.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trackerCell", for: indexPath) as! TrackerCollectionViewCell
+
+        if let name = trackers?[indexPath.row].name {
+            
+            print(name)
+            let string = String(name.map { $0 == " " ? "\n" : $0 })
+            cell.title.text =  string
+            
+        }
+        else {
+            
+            cell.title.text = "No\ntrackers"
+            
+        }
         
-        cell.title.text = trackerItems[indexPath.row].name
+        
         cell.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: cell.layer.frame, andColors: [UIColor.flatSkyBlue(), UIColor.flatSkyBlueColorDark(), UIColor.flatBlue()])
         cell.layer.cornerRadius = 10
         

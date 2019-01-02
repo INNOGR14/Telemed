@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class HomePageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -20,6 +21,11 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var userFullName: UILabel!
     @IBOutlet weak var taskTableView: UITableView!
     @IBOutlet weak var appointmentTableView: UITableView!
+    
+    let realm = try! Realm()
+    var categories : Results<AllCategories>?
+    var selectedCategory : Results<AllCategories>?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +45,32 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
         configureTable(taskTableView)
         configureTable(appointmentTableView)
         
+        categories = realm.objects(AllCategories.self)
+        
+        if let allCategories = categories {
+            
+            if allCategories.count != 2 {
+                do {
+                    try realm.write {
+                        
+                        for allCategory in allCategories {
+                            realm.delete(allCategory)
+                        }
+                        
+                        let newTask = AllCategories()
+                        newTask.name = "Tasks"
+                        newTask.needUpdate = true
+                        let newAppointments = AllCategories()
+                        newAppointments.name = "Appointments"
+                        newTask.needUpdate = true
+                        realm.add(newTask)
+                        realm.add(newAppointments)
+                    }
+                } catch {
+                    print("Error setting up categories: \(error)")
+                }
+            }
+        }
     }
     
 
@@ -46,6 +78,37 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
         
         performSegue(withIdentifier: "goToProfile", sender: self)
         
+    }
+    
+    @IBAction func tasksButtonPressed(_ sender: Any) {
+        
+        if let allCategories = categories {
+            selectedCategory = allCategories.filter("name CONTAINS %@", "Tasks")
+            performSegue(withIdentifier: "goToAll", sender: self)
+        }
+        
+        
+    }
+    
+    @IBAction func appointmentsButtonPressed(_ sender: Any) {
+        
+        if let allCategories = categories {
+            selectedCategory = allCategories.filter("name CONTAINS %@", "Appointments")
+            performSegue(withIdentifier: "goToAll", sender: self)
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        if segue.identifier == "goToAll" {
+            let destinationVC = segue.destination as! AllViewController
+            if let destinationCategory = selectedCategory?[0] {
+                destinationVC.selectedCategory = destinationCategory
+                destinationVC.titleName = destinationCategory.name
+            }
+        }
     }
     
     

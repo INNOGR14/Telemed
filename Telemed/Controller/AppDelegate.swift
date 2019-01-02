@@ -16,17 +16,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var loginInfo : [String : Any] = ["state" : false, "userID" : ""]
+    var loginInfo : [String : Any] = ["state" : true, "username" : "asdfj", "password" : "asdfj"]
+    
+    var nedUpdate = true
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        FirebaseApp.configure()
-        loginInfo["state"] = false
-        loginInfo["userID"] = ""
         
         let realm = try! Realm()
+//
+//        let newTracker = Trackers()
+//        newTracker.name = "test2"
+//        do {
+//            try realm.write {
+//                realm.add(newTracker)
+//            }
+//        } catch {
+//            print("Error adding tracker \(error)")
+//        }
+
         print(realm.configuration.fileURL)
+        
+        SyncData.retrieveTrackers(username: loginInfo["username"] as! String, password: loginInfo["password"] as! String, realm: realm)
+        SyncData.syncUpdate(username: loginInfo["username"] as! String, password: loginInfo["password"] as! String, realm: realm, fromServer: true)
         
         return true
     }
