@@ -84,6 +84,7 @@
             <color key="tintColor" red="0.011487450450658798" green="0.54474920034408569" blue="0.98625892400741577" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="messageButton" destination="gsp-f3-g5t" id="ymT-h7-y9f"/>
                 <outlet property="name" destination="H3b-qG-ncB" id="EIb-W6-fjA"/>
             </connections>
             <point key="canvasLocation" x="132.80000000000001" y="122.78860569715144"/>

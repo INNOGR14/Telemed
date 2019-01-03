@@ -17,17 +17,19 @@ class ConnectViewController: UIViewController {
     var contacts : Results<ContactData>?
 
     @IBOutlet weak var connectTableView: UITableView!
+    @IBOutlet weak var emergencyView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        emergencyView.layer.cornerRadius = 10.0
         
         connectTableView.delegate = self
         connectTableView.dataSource = self
         connectTableView.register(UINib(nibName: "ContactTableViewCell", bundle: nil), forCellReuseIdentifier: "connectCell")
         
-        addContact()
+//        addContact()
         loadContacts()
         configureTable(connectTableView)
         
@@ -61,7 +63,19 @@ class ConnectViewController: UIViewController {
         
     }
 
-
+    @IBAction func emergencyCallButonPressed(_ sender: Any) {
+        
+        if let url = URL(string: "tel://" + "999"), UIApplication.shared.canOpenURL(url) {
+            
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+            
+        }
+    }
+    
 }
 
 extension ConnectViewController: UITableViewDelegate, UITableViewDataSource {

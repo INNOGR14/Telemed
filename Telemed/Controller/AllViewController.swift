@@ -27,7 +27,7 @@ class AllViewController: UIViewController {
     var items : Results<AllItems>?
     var selectedCategory : AllCategories? {
         didSet {
-            items = selectedCategory?.allItems.sorted(byKeyPath: "datetime", ascending: true)
+            items = selectedCategory?.allItems.sorted(byKeyPath: "datetime", ascending: false)
         }
     }
     
@@ -82,7 +82,7 @@ class AllViewController: UIViewController {
             else {
                 formatter.dateFormat = "dd MMM yyyy hh:mm a"
                 dayFormatter.dateFormat = "MMM YYYY"
-                timeFormatter.dateFormat = "dd hh:mm a"
+                timeFormatter.dateFormat = "EEE dd hh:mm a"
                 
                 for item in currentCategory.allItems {
                     
@@ -111,38 +111,43 @@ class AllViewController: UIViewController {
             }
         }
         
-        do {
-            try realm.write {
-                if selectedCategory?.name == "Appointments" {
-                    for appointment in appointments {
-                        let newAppointment = AllItems()
-                        newAppointment.datetime = Date(timeIntervalSinceNow: TimeInterval(3600 * (appointment[0] as! Int)))
-                        newAppointment.notes = appointment[1] as! String
-                        newAppointment.uuid = UUID().uuidString
-                        selectedCategory?.allItems.append(newAppointment)
-                    }
-                }
-                else {
-                    for task in tasks {
-                        let newTask = AllItems()
-                        newTask.datetime = Date(timeIntervalSinceNow: TimeInterval(86400 * 31 * (task[0] as! Int)))
-                        newTask.notes = task[1] as! String
-                        newTask.uuid = UUID().uuidString
-                        selectedCategory?.allItems.append(newTask)
-                    }
-                }
-            }
-        } catch {
-            print(error)
-        }
+//        do {
+//            try realm.write {
+//                if selectedCategory?.name == "Appointments" {
+//                    for appointment in appointments {
+//                        let newAppointment = AllItems()
+//                        newAppointment.datetime = Date(timeIntervalSinceNow: TimeInterval(3600 * (appointment[0] as! Int)))
+//                        newAppointment.notes = appointment[1] as! String
+//                        newAppointment.uuid = UUID().uuidString
+//                        selectedCategory?.allItems.append(newAppointment)
+//                        let anotherAppointment = AllItems()
+//                        anotherAppointment.datetime = newAppointment.datetime
+//                        anotherAppointment.notes = appointment[1] as! String
+//                        anotherAppointment.uuid = UUID().uuidString
+//                        selectedCategory?.allItems.append(anotherAppointment)
+//                    }
+//                }
+//                else {
+//                    for task in tasks {
+//                        let newTask = AllItems()
+//                        newTask.datetime = Date(timeIntervalSinceNow: TimeInterval(86400 * 31 * (task[0] as! Int)))
+//                        newTask.notes = task[1] as! String
+//                        newTask.uuid = UUID().uuidString
+//                        selectedCategory?.allItems.append(newTask)
+//                        let anotherTask = AllItems()
+//                        anotherTask.datetime = newTask.datetime
+//                        anotherTask.notes = task[1] as! String
+//                        anotherTask.uuid = UUID().uuidString
+//                        selectedCategory?.allItems.append(anotherTask)
+//                    }
+//                }
+//            }
+//        } catch {
+//            print(error)
+//        }
         
         configureTable(allTable)
     
-    }
-    
-    @IBAction func addButtonPressed(_ sender: Any) {
-        
-        
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -164,20 +169,55 @@ extension AllViewController: UITableViewDelegate, UITableViewDataSource {
             return dict["count"] as! Int
         }
         else {
-            return 0
+            return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = allTable.dequeueReusableCell(withIdentifier: "allCell") as! AppointmentTableViewCell
-        cell.date.text = formatter.string(from: items?[indexPath.row].datetime ?? Date())
-        cell.info.text = items?[indexPath.row].notes ?? "No" + titleLabel.text!
+        var startingIndex = 0
+        if let dict = tableDict {
+            for i in 0..<indexPath.section {
+                startingIndex += dict[i]["count"] as! Int
+            }
+        }
+        cell.date.text = " " + timeFormatter.string(from: items?[indexPath.row + startingIndex].datetime ?? Date())
+        cell.info.text = " " + (items?[indexPath.row].notes ?? "No" + titleLabel.text!)
+        cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let dict = tableDict?[section] {
+            let date = dict["date"] as! Date
+            return dayFormatter.string(from: date)
+        }
+        else {
+            return "No section"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        
+        headerView.backgroundColor = UIColor.lightGray
+        
+        let headerLabel = UILabel(frame: CGRect(x: 8, y: 0, width:
+            tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.font = UIFont(name: "Helvetica", size: 30)
+        headerLabel.textColor = UIColor.white
+        headerLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+        
+        return headerView
     }
     
     func configureTable(_ table : UITableView) {
         table.separatorStyle = .none
         table.rowHeight = UITableView.automaticDimension
         table.estimatedRowHeight = 120.0
+        table.sectionHeaderHeight = UITableView.automaticDimension
+        table.estimatedSectionHeaderHeight = 40.0
     }
 }

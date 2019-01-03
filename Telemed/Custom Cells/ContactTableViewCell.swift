@@ -12,6 +12,7 @@ class ContactTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var messageButton: UIButton!
     
     var phoneNum = ""
     

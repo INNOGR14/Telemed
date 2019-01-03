@@ -391,5 +391,73 @@ class SyncData {
         }
     }
     
+    static func retrieveRecords(username: String, password: String, realm: Realm) {
+        
+        let retrieveRecordsParam : [String : Any] = ["username" : username, "password" : password]
+        
+        Alamofire.request("https://ide50-nobodysp.cs50.io:8080/retrieveRecords", method: .post, parameters: retrieveRecordsParam, encoding: JSONEncoding.default).responseJSON {
+            response in
+            
+            switch response.result {
+                
+            case .success(let result):
+                
+                if JSON(result)["result"].bool! {
+                    
+                    if let contentArray = JSON(result)["content"].array {
+                        
+                        var recordsData : Results<RecordsData>?
+                        recordsData = realm.objects(RecordsData.self)
+                        
+                        for content in contentArray {
+                            if let record = content.dictionaryObject {
+                                
+                                var appendable = true
+                                
+                                if recordsData != nil {
+                                    for recordData in recordsData! {
+                                        if recordData.name == record["name"] as! String {
+                                            appendable = false
+                                            break
+                                        }
+                                    }
+                                    
+                                    if appendable {
+                                        
+                                        let newRecord = Items(JSONString: content.rawString()!)!
+                                        
+                                        do {
+                                            try realm.write {
+                                                realm.add(newRecord)
+                                            }
+                                        } catch {
+                                            print("Error appending recordsData: \(error)")
+                                        }
+                                    }
+                                    else {
+                                        
+                                        let selectedRecord = recordsData?.filter("name CONTAINS %@", record["name"] as! String)
+                                        
+                                        if selectedRecord != nil {
+                                            selectedRecord!.first!.data = record["data"] as! String
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    print("Querying retrieveRecords error")
+                    print(response)
+                }
+            case .failure(let error):
+                print("Error connecting to retrieveRecords: \(error)")
+            }
+        }
+    }
     
+    static func retrieveUserInfo(username: String, password: String) {
+        
+    }
 }

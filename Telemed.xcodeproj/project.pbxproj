@@ -12,6 +12,9 @@
 		FA0E47F921D738E6003C23C9 /* UpdatedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E47F821D738E6003C23C9 /* UpdatedData.swift */; };
 		FA0E47FB21D73FA5003C23C9 /* SyncData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E47FA21D73FA5003C23C9 /* SyncData.swift */; };
 		FA3AC73C21DAA39B00D7AEF4 /* AllItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AC73B21DAA39B00D7AEF4 /* AllItems.swift */; };
+		FA490EFE21DE76C900C60C60 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490EFD21DE76C900C60C60 /* RootViewController.swift */; };
+		FA490F0021DEA74B00C60C60 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */; };
+		FA490F0221DEB26C00C60C60 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490F0121DEB26C00C60C60 /* SettingsViewController.swift */; };
 		FA4D0DD821D2FD70003D1331 /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D0DD721D2FD70003D1331 /* TrackerViewController.swift */; };
 		FA4D0DDB21D314A0003D1331 /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D0DD921D314A0003D1331 /* TrackerCollectionViewCell.swift */; };
 		FA4D0DDC21D314A0003D1331 /* TrackerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4D0DDA21D314A0003D1331 /* TrackerCollectionViewCell.xib */; };
@@ -43,6 +46,13 @@
 		FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88285021CE377D00513343 /* HomeTableViewCell.swift */; };
 		FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA88285121CE377D00513343 /* HomeTableViewCell.xib */; };
 		FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB662F021CE46C300297FCD /* GoogleService-Info.plist */; };
+		FAED2F1521DD3A4C006A943F /* TextonlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F1321DD3A4C006A943F /* TextonlyTableViewCell.swift */; };
+		FAED2F1621DD3A4C006A943F /* TextonlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAED2F1421DD3A4C006A943F /* TextonlyTableViewCell.xib */; };
+		FAED2F1921DE216F006A943F /* RecordsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F1721DE216F006A943F /* RecordsTableViewCell.swift */; };
+		FAED2F1A21DE216F006A943F /* RecordsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAED2F1821DE216F006A943F /* RecordsTableViewCell.xib */; };
+		FAED2F2021DE251A006A943F /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F1F21DE251A006A943F /* RecordsViewController.swift */; };
+		FAED2F2221DE2840006A943F /* RecordsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F2121DE2840006A943F /* RecordsData.swift */; };
+		FAED2F2421DE3729006A943F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F2321DE3729006A943F /* Credentials.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +63,9 @@
 		FA0E47F821D738E6003C23C9 /* UpdatedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedData.swift; sourceTree = "<group>"; };
 		FA0E47FA21D73FA5003C23C9 /* SyncData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncData.swift; sourceTree = "<group>"; };
 		FA3AC73B21DAA39B00D7AEF4 /* AllItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllItems.swift; sourceTree = "<group>"; };
+		FA490EFD21DE76C900C60C60 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		FA490F0121DEB26C00C60C60 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FA4D0DD721D2FD70003D1331 /* TrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
 		FA4D0DD921D314A0003D1331 /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA4D0DDA21D314A0003D1331 /* TrackerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackerCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -86,6 +99,13 @@
 		FA88285021CE377D00513343 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FA88285121CE377D00513343 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		FAB662F021CE46C300297FCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FAED2F1321DD3A4C006A943F /* TextonlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextonlyTableViewCell.swift; sourceTree = "<group>"; };
+		FAED2F1421DD3A4C006A943F /* TextonlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextonlyTableViewCell.xib; sourceTree = "<group>"; };
+		FAED2F1721DE216F006A943F /* RecordsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsTableViewCell.swift; sourceTree = "<group>"; };
+		FAED2F1821DE216F006A943F /* RecordsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordsTableViewCell.xib; sourceTree = "<group>"; };
+		FAED2F1F21DE251A006A943F /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		FAED2F2121DE2840006A943F /* RecordsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsData.swift; sourceTree = "<group>"; };
+		FAED2F2321DE3729006A943F /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +182,8 @@
 				FA0E47FA21D73FA5003C23C9 /* SyncData.swift */,
 				FA59220A21DAA2F1009F74AD /* AllCategories.swift */,
 				FA3AC73B21DAA39B00D7AEF4 /* AllItems.swift */,
+				FAED2F2121DE2840006A943F /* RecordsData.swift */,
+				FAED2F2321DE3729006A943F /* Credentials.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -189,6 +211,10 @@
 				FA6981B721D8D699000BBF9A /* ExaminationHistoryViewController.swift */,
 				FA76ABE121D15144001E1689 /* HomePageViewController.swift */,
 				FA59220821DAA190009F74AD /* AllViewController.swift */,
+				FAED2F1F21DE251A006A943F /* RecordsViewController.swift */,
+				FA490EFD21DE76C900C60C60 /* RootViewController.swift */,
+				FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */,
+				FA490F0121DEB26C00C60C60 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -206,6 +232,10 @@
 				FA4D0E1221D40AF3003D1331 /* ContactTableViewCell.xib */,
 				FA6981B321D8D417000BBF9A /* HistoryTableViewCell.swift */,
 				FA6981B421D8D417000BBF9A /* HistoryTableViewCell.xib */,
+				FAED2F1321DD3A4C006A943F /* TextonlyTableViewCell.swift */,
+				FAED2F1421DD3A4C006A943F /* TextonlyTableViewCell.xib */,
+				FAED2F1721DE216F006A943F /* RecordsTableViewCell.swift */,
+				FAED2F1821DE216F006A943F /* RecordsTableViewCell.xib */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -284,9 +314,11 @@
 				FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */,
 				FA88283721CD75B600513343 /* LaunchScreen.storyboard in Resources */,
 				FA88283421CD75B600513343 /* Assets.xcassets in Resources */,
+				FAED2F1A21DE216F006A943F /* RecordsTableViewCell.xib in Resources */,
 				FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */,
 				FA88282F21CD75B400513343 /* Main.storyboard in Resources */,
 				FA6981B621D8D417000BBF9A /* HistoryTableViewCell.xib in Resources */,
+				FAED2F1621DD3A4C006A943F /* TextonlyTableViewCell.xib in Resources */,
 				FA76ABE021D14ED1001E1689 /* AppointmentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,21 +409,27 @@
 			files = (
 				FA59220B21DAA2F1009F74AD /* AllCategories.swift in Sources */,
 				FA88284C21CD865900513343 /* HomeViewController.swift in Sources */,
+				FA490F0221DEB26C00C60C60 /* SettingsViewController.swift in Sources */,
 				FA4D0DDE21D36C2B003D1331 /* TrackerInfoViewController.swift in Sources */,
 				FA88284A21CD863200513343 /* LoginViewController.swift in Sources */,
 				FA0E47F921D738E6003C23C9 /* UpdatedData.swift in Sources */,
 				FA76ABE621D18751001E1689 /* ProfileViewController.swift in Sources */,
+				FAED2F1521DD3A4C006A943F /* TextonlyTableViewCell.swift in Sources */,
 				FA77E78221D55823004AD84A /* Items.swift in Sources */,
 				FA0E47FB21D73FA5003C23C9 /* SyncData.swift in Sources */,
+				FA490F0021DEA74B00C60C60 /* FAQViewController.swift in Sources */,
 				FA4D0DD821D2FD70003D1331 /* TrackerViewController.swift in Sources */,
 				FA76ABE221D15144001E1689 /* HomePageViewController.swift in Sources */,
 				FA4D0DDB21D314A0003D1331 /* TrackerCollectionViewCell.swift in Sources */,
+				FAED2F2421DE3729006A943F /* Credentials.swift in Sources */,
 				FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */,
 				FA76ABDF21D14ED1001E1689 /* AppointmentTableViewCell.swift in Sources */,
 				FA0E47EF21D55CF7003C23C9 /* Trackers.swift in Sources */,
+				FAED2F1921DE216F006A943F /* RecordsTableViewCell.swift in Sources */,
 				FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */,
 				FA4D0E1621D41278003D1331 /* ConnectViewController.swift in Sources */,
 				FA3AC73C21DAA39B00D7AEF4 /* AllItems.swift in Sources */,
+				FA490EFE21DE76C900C60C60 /* RootViewController.swift in Sources */,
 				FA4D0E1321D40AF3003D1331 /* ContactTableViewCell.swift in Sources */,
 				FA6981B521D8D417000BBF9A /* HistoryTableViewCell.swift in Sources */,
 				FA6981B821D8D699000BBF9A /* ExaminationHistoryViewController.swift in Sources */,
@@ -400,6 +438,8 @@
 				FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */,
 				FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */,
 				FA4D0E1821D413C6003D1331 /* ContactData.swift in Sources */,
+				FAED2F2021DE251A006A943F /* RecordsViewController.swift in Sources */,
+				FAED2F2221DE2840006A943F /* RecordsData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
