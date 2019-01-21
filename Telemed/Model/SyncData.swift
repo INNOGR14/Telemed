@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class SyncData {
     
-    static func retrieveTrackers (username: String, password: String, realm: Realm) {
+    static func retrieveInfo (username: String, password: String, realm: Realm) {
         let formatter = DateFormatter()
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
@@ -30,13 +30,16 @@ class SyncData {
             for tracker in trackers {
                 let retrieveTrackersParam : [String : Any] = ["tracker" : tracker.name, "username" : username, "password" : password]
                 
-                Alamofire.request("https://ide50-nobodysp.cs50.io:8080/retrieveInfo", method: .post, parameters: retrieveTrackersParam , encoding: JSONEncoding.default).responseJSON {
+                Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/retrieveInfo", method: .post, parameters: retrieveTrackersParam , encoding: JSONEncoding.default).responseJSON {
                     response in
                     
                     
                     switch response.result {
                         
                     case .success(let items):
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
                         
                         if JSON(items)["result"].bool! {
                             
@@ -48,7 +51,14 @@ class SyncData {
                                 
                                 if itemDict!["updated"] as! Bool == false {
                                     
-                                    let newItem = Items(JSONString: item.rawString()!)!
+                                    let newItem = Items()
+                                    let datetime = itemDict!["datetime"] as! String
+                                    newItem.datetime = dateFormatter.date(from: datetime)!
+                                    newItem.creator = itemDict!["creator"] as! String
+                                    newItem.data = Double(itemDict!["data"] as! String)!
+                                    newItem.notes = itemDict!["notes"] as! String
+                                    newItem.uuid = itemDict!["uuid"] as! String
+                                    newItem.byPT = itemDict!["byPT"] as! Bool
                                     newItem.updated = true
                                     newItem.compoundKey = formatter.string(from: newItem.datetime) + String(newItem.byPT)
                                     
@@ -92,7 +102,7 @@ class SyncData {
                             
                                 let syncUpdateParam : [String : Any] = ["username" : username, "password" : password, "updatedItems" : updatedItems!]
                                 
-                                Alamofire.request("https://ide50-nobodysp.cs50.io:8080/syncUpdate", method: .post, parameters: syncUpdateParam, encoding: JSONEncoding.default).responseJSON {
+                                Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/syncUpdate", method: .post, parameters: syncUpdateParam, encoding: JSONEncoding.default).responseJSON {
                                     response in
                                     
                                     switch response.result {
@@ -179,10 +189,9 @@ class SyncData {
         }
     }
     
-    static func syncUpdate(username : String, password : String, realm: Realm, fromServer: Bool) {
+    static func syncItemUpdate(username : String, password : String, realm: Realm, fromServer: Bool) {
         
         if fromServer == true {
-            
             let updatedDataArray : Results<UpdatedData>?
             updatedDataArray = realm.objects(UpdatedData.self)
             
@@ -200,7 +209,7 @@ class SyncData {
                 if updatedItems != nil {
                     let syncUpdateParam : [String : Any] = ["username" : username, "password" : password, "updatedItems" : updatedItems!]
     
-                    Alamofire.request("https://ide50-nobodysp.cs50.io:8080/syncUpdate", method: .post, parameters: syncUpdateParam, encoding: JSONEncoding.default).responseJSON {
+                    Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/syncUpdate", method: .post, parameters: syncUpdateParam, encoding: JSONEncoding.default).responseJSON {
                         response in
                         
                         switch response.result {
@@ -249,24 +258,26 @@ class SyncData {
                     
                     var itemParamArray : [[String : Any]] = []
                     
-                    for i in tracker.lastUpdateIndex...(tracker.items.count - 1) {
-                        if tracker.items[i].updated == false {
-                            let item = tracker.items[i]
-                            var itemsParam : [String : Any] = [:]
-                            itemsParam["datetime"] = formatter.string(from: item.datetime)
-                            itemsParam["data"] = item.data
-                            itemsParam["notes"] = item.notes
-                            itemsParam["uuid"] = item.uuid
-                            itemsParam["creator"] = item.creator
-                            itemsParam["byPT"] = true
-                            itemsParam["updated"] = true
-                            itemParamArray.append(itemsParam)
+                    if tracker.items.count > 0 {
+                    
+                        for i in tracker.lastUpdateIndex...(tracker.items.count - 1) {
+                            if tracker.items[i].updated == false {
+                                let item = tracker.items[i]
+                                var itemsParam : [String : Any] = [:]
+                                itemsParam["datetime"] = formatter.string(from: item.datetime)
+                                itemsParam["data"] = item.data
+                                itemsParam["notes"] = item.notes
+                                itemsParam["uuid"] = item.uuid
+                                itemsParam["creator"] = item.creator
+                                itemsParam["byPT"] = true
+                                itemsParam["updated"] = true
+                                itemParamArray.append(itemsParam)
+                            }
                         }
                     }
-                    
                     let addInfoParam : [String : Any] = ["username" : username, "password" : password, "tracker" : tracker.name, "items" : itemParamArray]
                     
-                    Alamofire.request("https://ide50-nobodysp.cs50.io:8080/addInfo", method: .post, parameters: addInfoParam, encoding: JSONEncoding.default).responseJSON {
+                    Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/addInfo", method: .post, parameters: addInfoParam, encoding: JSONEncoding.default).responseJSON {
                         response in
                         
                         switch response.result {
@@ -319,7 +330,7 @@ class SyncData {
         
         let syncDeleteParam : [String : Any] = ["username" : username, "password" : password, "tracker" : "", "uuid" : ""]
         
-            Alamofire.request("https://ide50-nobodysp.cs50.io:8080/syncDelete", method: .post, parameters: syncDeleteParam, encoding: JSONEncoding.default).responseJSON {
+            Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/syncDelete", method: .post, parameters: syncDeleteParam, encoding: JSONEncoding.default).responseJSON {
                 response in
                 
                 switch response.result {
@@ -364,29 +375,179 @@ class SyncData {
 
     }
     
-    static func retrieveAll(username: String, password: String) {
+    static func retrieveAll(username: String, password: String, realm: Realm, completion: @escaping (_ result: Bool) -> ()) {
         
         let retrieveAllParam : [String : Any] = ["username" : username, "password" : password]
         
-        Alamofire.request("https://ide50-nobodysp.cs50.io:8080/retrieveAll", method: .post, parameters: retrieveAllParam, encoding: JSONEncoding.default).responseJSON {
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/retrieveAll", method: .post, parameters: retrieveAllParam, encoding: JSONEncoding.default).responseJSON {
             response in
             
             switch response.result {
                 
             case .success(let result):
                 
-                if JSON(result)["result"] == true {
-//                    let appointments = JSON(result)["content"]["Appointments"].array
-//                    let tasks = JSON(result)["content"]["Tasks"].array
+                var allCategories : Results<AllCategories>
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                
+                allCategories = realm.objects(AllCategories.self)
+                
+                if JSON(result)["resultAppointments"] == true {
                     
+                    let allAppointments = allCategories.filter("name CONTAINS %@", "Appointments").first?.allItems
+                    let appointments = JSON(result)["appointments"].array
+                    
+                    if let appointments = appointments {
+                        for appointment in appointments {
+                            
+                            let appointmentDict = appointment.dictionaryObject
+                            
+                            if appointmentDict!["updated"] as! Bool == false {
+                                
+                                let newAppointment = AllItems()
+                                let datetime = dateFormatter.date(from: appointmentDict!["datetime"] as! String)!
+                                newAppointment.uuid = appointmentDict!["uuid"] as! String
+                                newAppointment.datetime = datetime
+                                newAppointment.notes = appointmentDict!["note"] as! String
+                                newAppointment.updated = true
+                                
+                                if datetime >= Date() {
+                                    
+                                    var appendable = true
+                                    
+                                    for allAppointment in allAppointments! {
+                                        if allAppointment.uuid == newAppointment.uuid {
+                                            appendable = false
+                                            break
+                                        }
+                                    }
+                                    
+                                    if appendable {
+                                        do {
+                                            try realm.write {
+                                                allAppointments!.append(newAppointment)
+                                            }
+                                        } catch {
+                                            print("Error saving new appointment to realm form server \(error)")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 else {
                     print("Querying error for retrieveAll")
                     print(result)
                 }
+                
+                if JSON(result)["resultTasks"] == true {
+                    
+                    let allTasks = allCategories.filter("name CONTAINS %@", "Tasks").first?.allItems
+                    let tasks = JSON(result)["tasks"].array
+                    
+                    if let tasks = tasks {
+                        for task in tasks {
+                            
+                            let taskDict = task.dictionaryObject
+                            
+                            if taskDict!["updated"] as! Bool == false {
+                                
+                                let newTask = AllItems()
+                                let datetime = dateFormatter.date(from: taskDict!["datetime"] as! String)!
+                                newTask.uuid = taskDict!["uuid"] as! String
+                                newTask.datetime = datetime
+                                newTask.notes = taskDict!["note"] as! String
+                                newTask.updated = true
+                                
+                                if datetime >= Date() {
+                                    
+                                    var appendable = true
+                                    
+                                    for allTask in allTasks! {
+                                        if allTask.uuid == newTask.uuid {
+                                            appendable = false
+                                            break
+                                        }
+                                    }
+                                    
+                                    if appendable {
+                                        do {
+                                            try realm.write {
+                                                allTasks!.append(newTask)
+                                            }
+                                        } catch {
+                                            print("Error saving new task to realm form server \(error)")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    print("Querying error for retrieveAll")
+                    print(result)
+                }
+                
+                completion(true)
             
             case .failure(let error):
                 print("Error connecting to retrieveAll \(error)")
+                completion(false)
+            }
+        }
+    }
+    
+    static func syncAllUpdate(username: String, password: String, realm: Realm) {
+        
+        let allCategories : Results<AllCategories>?
+        
+        allCategories = realm.objects(AllCategories.self)
+        
+        if let allCategories = allCategories {
+            
+            let tasks = allCategories.filter("name CONTAINS %@", "Tasks").first?.allItems
+            let appointments = allCategories.filter("name CONTAINS %@", "Appointments").first?.allItems
+            
+            var taskUUIDs : [String]?
+            var appointmentUUIDs : [String]?
+            
+            if let tasks = tasks {
+                for task in tasks {
+                    if taskUUIDs == nil {
+                        taskUUIDs = [task.uuid]
+                    }
+                    else {
+                        taskUUIDs!.append(task.uuid)
+                    }
+                }
+            }
+            if let appointments = appointments {
+                for appointment in appointments {
+                    if appointmentUUIDs == nil {
+                        appointmentUUIDs = [appointment.uuid]
+                    }
+                    else {
+                        appointmentUUIDs!.append(appointment.uuid)
+                    }
+                }
+            }
+            
+            let syncAllUpdateParam : [String : Any] = ["username" : username, "password" : password, "updatedTasks" : taskUUIDs ?? [], "updatedAppointments" : appointmentUUIDs ?? []]
+            
+            Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/syncAllUpdate", method: .post, parameters: syncAllUpdateParam, encoding: JSONEncoding.default).responseJSON {
+                
+                response in
+                
+                switch response.result {
+                    
+                case .success(let result):
+                    print(result)
+                case .failure(let error):
+                    print("error syncing all: \(error)")
+                }
             }
         }
     }
@@ -395,7 +556,7 @@ class SyncData {
         
         let retrieveRecordsParam : [String : Any] = ["username" : username, "password" : password]
         
-        Alamofire.request("https://ide50-nobodysp.cs50.io:8080/retrieveRecords", method: .post, parameters: retrieveRecordsParam, encoding: JSONEncoding.default).responseJSON {
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/retrieveRecords", method: .post, parameters: retrieveRecordsParam, encoding: JSONEncoding.default).responseJSON {
             response in
             
             switch response.result {
@@ -457,7 +618,151 @@ class SyncData {
         }
     }
     
-    static func retrieveUserInfo(username: String, password: String) {
+    static func retrievePatientInfo(username: String, password: String, defaults: UserDefaults) {
+        
+        let retrievePatientInfoParam : [String : Any] = ["username": username, "password" : password]
+        
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/retrievePatientInfo", method: .post, parameters: retrievePatientInfoParam, encoding: JSONEncoding.default).responseJSON {
+            
+            response in
+            
+            switch response.result {
+                
+            case .success(let result):
+                
+                if JSON(result)["result"].bool! {
+                    
+                    let contentDict = JSON(result)["content"].dictionaryObject
+                    
+                    if let contentDict = contentDict {
+                        
+                        defaults.set(contentDict["fullName"] as! String, forKey: "fullName")
+                        defaults.set(contentDict["userID"] as! Int, forKey: "userID")
+                        
+                        var birthdate = contentDict["birthdate"] as? String
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "MM-dd-yyyy"
+                        let formattedBirthdate = dateFormatter.date(from: birthdate ?? "") ?? Date()
+                        let finalFormatter = DateFormatter()
+                        finalFormatter.dateFormat = "dd-MMM-yyyy"
+                        birthdate = finalFormatter.string(from: formattedBirthdate)
+                        let calendar = Calendar.current
+                        let ageComponents = calendar.dateComponents([.year, .month], from: formattedBirthdate, to: Date())
+                        if let year = ageComponents.year {
+                            if let month = ageComponents.month {
+                                
+                                let age = "\(year) years \(month) months"
+                                defaults.set(age, forKey: "age")
+                            }
+                        }
+                        
+                        defaults.set(birthdate, forKey: "birthdate")
+                    }
+                }
+                else {
+                    print("Querying error? \(result)")
+                }
+            case .failure(let error):
+                print("Error retrieving patient info: \(error)")
+            }
+        }
+    }
+    
+    static func retrieveTrackers(username: String, password: String, realm: Realm, completion: @escaping (_ result: Bool) -> ()) {
+        
+        let retrieveTrackersParam : [String : Any] = ["username" : username, "password" : password]
+        
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/retrieveTrackers", method: .post, parameters: retrieveTrackersParam, encoding: JSONEncoding.default).responseJSON {
+            response in
+            
+            switch response.result {
+                
+            case .success(let result):
+                let allTrackers : Results<Trackers>
+                allTrackers = realm.objects(Trackers.self)
+                
+                let contents = JSON(result)["content"].array!
+                
+                for content in contents {
+                    
+                    if let tracker = content.dictionaryObject {
+                        
+                        if tracker["updated"] as! Bool == false {
+                            
+                            var addable = true
+                            
+                            for allTracker in allTrackers {
+                                if allTracker.name == tracker["tracker"] as! String {
+                                    addable = false
+                                    break
+                                }
+                            }
+                            
+                            if addable {
+                                do {
+                                    try realm.write {
+                                        let newTracker = Trackers()
+                                        newTracker.name = tracker["tracker"] as! String
+                                        
+                                        realm.add(newTracker)
+                                    }
+                                } catch {
+                                    print("Error writing new tracker to realm: \(error)")
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                completion(true)
+            case .failure(let error):
+                print("Error retrieving trackers: \(error)")
+                completion(false)
+            }
+        }
+    }
+    
+    static func syncTrackerUpdate(username: String, password: String, realm: Realm) {
+        
+        let allTrackers : Results<Trackers>
+        
+        allTrackers = realm.objects(Trackers.self)
+        
+        var trackerNames : [String]?
+        
+        for allTracker in allTrackers {
+            
+            if trackerNames == nil {
+                trackerNames = [allTracker.name]
+            }
+            else {
+                trackerNames!.append(allTracker.name)
+            }
+        }
+        
+        if let trackerNames = trackerNames {
+            let syncUpdateTrackerParam : [String : Any] = ["username" : username, "password" : password, "updatedTrackers" : trackerNames]
+            
+            Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/syncUpdateTracker", method: .post, parameters: syncUpdateTrackerParam, encoding: JSONEncoding.default).responseJSON {
+                
+                response in
+                
+                switch response.result {
+                    
+                case .success(let result):
+                    
+                    if JSON(result)["result"].bool! == true {
+                        print("successfully synced")
+                        print(JSON(result)["message"])
+                    }
+                    else {
+                        print(JSON(result)["message"])
+                    }
+                case .failure(let error):
+                    print("Error syncing tracker with server: \(error)")
+                }
+            }
+        }
         
     }
 }

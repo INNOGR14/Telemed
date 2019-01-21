@@ -26,11 +26,11 @@ class TrackerInfoViewController: UIViewController {
     var titleText = ""
     var infoFieldText = ""
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var username = ""
-    var password = ""
     
     let datePickerView = UIDatePicker()
     let timePickerView = UIDatePicker()
+    
+    var credentials : Credentials?
     
     let realm = try! Realm()
     
@@ -40,8 +40,14 @@ class TrackerInfoViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        username = appDelegate.loginInfo["username"] as! String
-        password = appDelegate.loginInfo["password"] as! String
+        
+        do {
+            credentials = try GetCredentials.getUserPass()
+        } catch {
+            print(error)
+        }
+        
+        SyncData.retrieveInfo(username: credentials?.username ?? "", password: credentials?.password ?? "", realm: realm)
         
         titleText = selectedTracker?.name ?? "No tracker"
         infoFieldText = selectedTracker?.name ?? "No tracker"
@@ -121,7 +127,7 @@ class TrackerInfoViewController: UIViewController {
                     newItem.datetime = textToDate()
                     newItem.notes = notesField.text!
                     newItem.uuid = UUID().uuidString
-                    newItem.compoundKey = dateField.text! + " " + timeField.text! + String(true)
+                    newItem.compoundKey = selectedTracker!.name + dateField.text! + " " + timeField.text! + String(true)
                     
                     if let tracker = selectedTracker {
                         
@@ -142,7 +148,7 @@ class TrackerInfoViewController: UIViewController {
                         infoField.text = ""
                         notesField.text = ""
                         SCLAlertView().showSuccess("Success!", subTitle: "Data added")
-                        SyncData.syncUpdate(username: username, password: password, realm: realm, fromServer: false)
+                        SyncData.syncItemUpdate(username: credentials?.username ?? "", password: credentials?.password ?? "", realm: realm, fromServer: false)
                     }
                     else {
                         SCLAlertView().showError("Failed", subTitle: "\(selectedTracker!.name) data at at this time already exists. Please change the time.")

@@ -24,6 +24,7 @@ class ExaminationHistoryViewController: UIViewController {
     var selectedSegment : [SelectedSegment]?
     
     let realm = try! Realm()
+    var credentials : Credentials?
     var trackers : Results<Trackers>?
     let time = Calendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date())
     var minimum : Double = 0
@@ -33,6 +34,7 @@ class ExaminationHistoryViewController: UIViewController {
     var all = false
     var customFormatter = "HH:mm"
     var customIndex : IndexPath?
+    var segmentArray : [Int]?
     
     @IBOutlet weak var historyTable: UITableView!
     
@@ -41,6 +43,15 @@ class ExaminationHistoryViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        do {
+            credentials = try GetCredentials.getUserPass()
+        } catch {
+            print(error)
+        }
+        
+        SyncData.retrieveInfo(username: credentials?.username ?? "", password: credentials?.password ?? "", realm: realm)
+        
         minimum = Date(timeIntervalSinceNow: -86400).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
         maximum = minimum + 86400
         numberOfIntervals = 8
@@ -64,7 +75,52 @@ class ExaminationHistoryViewController: UIViewController {
         trackers = realm.objects(Trackers.self)
     }
     
-    
+    func changeChartsParam(_ segment: SelectedSegment) {
+        
+        switch segment {
+            
+        case .day:
+            all = false
+            minimum = Date(timeIntervalSinceNow: -86400).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+            maximum = minimum + 86400
+            numberOfIntervals = 8
+            interval = (maximum - minimum) / numberOfIntervals
+            customFormatter = "HH:mm"
+        case .week:
+            all = false
+            minimum = Date(timeIntervalSinceNow: -86400 * 7).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+            maximum = minimum + 86400 * 7
+            interval = 86400 * 2
+            customFormatter = "dd/MM"
+        case .month:
+            all = false
+            if time.month! == 1 || time.month! == 3 || time.month! == 5 || time.month! == 7 || time.month! == 8 || time.month! == 10 || time.month! == 12 {
+                minimum = Date(timeIntervalSinceNow: -86400 * 31).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                maximum = minimum + 86400 * 31
+            }
+            else if time.month! == 2 {
+                minimum = Date(timeIntervalSinceNow: -86400 * 28).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                maximum = minimum + 86400 * 28
+                
+            }
+            else {
+                minimum = Date(timeIntervalSinceNow: -86400 * 30).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                maximum = minimum + 86400 * 30
+            }
+            
+            customFormatter = "dd/MM"
+            interval = 86400*5
+        case .year:
+            all = false
+            minimum = Date(timeIntervalSinceNow: -86400 * 365).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+            maximum = minimum + 86400 * 365
+            interval = 86400 * 61
+            customFormatter = "MMM"
+        case .all:
+            all = true
+            customFormatter = "MMM YY"
+        }
+    }
 
 }
 
@@ -82,12 +138,17 @@ extension ExaminationHistoryViewController: UITableViewDelegate, UITableViewData
         cell.axisFormatDelegate = self as IAxisValueFormatter
         cell.intervalButtons.addTarget(self, action: #selector(segmentedControlValueChanged(segment:)), for: .valueChanged)
         
+        
+        cell.intervalButtons.selectedSegmentIndex = selectedSegment![indexPath.row].rawValue
+        cell.selectionStyle = .none
+        
+        changeChartsParam(selectedSegment![indexPath.row])
+        
         if let allTrackers = trackers {
             
             cell.updateChart(tracker: allTrackers[indexPath.row], minimum: minimum, maximum: maximum, interval: interval, all: all)
         }
-        cell.intervalButtons.selectedSegmentIndex = selectedSegment![indexPath.row].rawValue
-        cell.selectionStyle = .none
+        
         return cell
     }
     
@@ -112,7 +173,7 @@ extension ExaminationHistoryViewController: UITableViewDelegate, UITableViewData
             numberOfIntervals = 8
             interval = (maximum - minimum) / numberOfIntervals
             customFormatter = "HH:mm"
-            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
+            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
             
         case 1:
             selectedSegment![indexPath!.row] = SelectedSegment.week
@@ -121,7 +182,7 @@ extension ExaminationHistoryViewController: UITableViewDelegate, UITableViewData
             maximum = minimum + 86400 * 7
             interval = 86400 * 2
             customFormatter = "dd/MM"
-            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
+            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
             
         case 2:
             selectedSegment![indexPath!.row] = SelectedSegment.month
@@ -143,7 +204,7 @@ extension ExaminationHistoryViewController: UITableViewDelegate, UITableViewData
             customFormatter = "dd/MM"
             interval = 86400*5
             
-            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
+            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
             
         case 3:
             selectedSegment![indexPath!.row] = SelectedSegment.year
@@ -152,13 +213,13 @@ extension ExaminationHistoryViewController: UITableViewDelegate, UITableViewData
             maximum = minimum + 86400 * 365
             interval = 86400 * 61
             customFormatter = "MMM"
-            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
+            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
             
         case 4:
             selectedSegment![indexPath!.row] = SelectedSegment.all
             all = true
             customFormatter = "MMM YY"
-            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
+            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
             
         default:
             selectedSegment![indexPath!.row] = SelectedSegment.day
@@ -167,7 +228,7 @@ extension ExaminationHistoryViewController: UITableViewDelegate, UITableViewData
             maximum = minimum + 86400
             numberOfIntervals = 8
             interval = (maximum - minimum) / numberOfIntervals
-            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
+            historyTable.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
         }
         
     }

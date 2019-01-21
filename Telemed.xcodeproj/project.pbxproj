@@ -15,6 +15,13 @@
 		FA490EFE21DE76C900C60C60 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490EFD21DE76C900C60C60 /* RootViewController.swift */; };
 		FA490F0021DEA74B00C60C60 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */; };
 		FA490F0221DEB26C00C60C60 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490F0121DEB26C00C60C60 /* SettingsViewController.swift */; };
+		FA490F0421DF469C00C60C60 /* TutorialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490F0321DF469C00C60C60 /* TutorialsViewController.swift */; };
+		FA490F0621DF52B300C60C60 /* FAQSubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490F0521DF52B300C60C60 /* FAQSubViewController.swift */; };
+		FA490F0921DF5BC200C60C60 /* FAQTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490F0721DF5BC200C60C60 /* FAQTableViewCell.swift */; };
+		FA490F0A21DF5BC200C60C60 /* FAQTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA490F0821DF5BC200C60C60 /* FAQTableViewCell.xib */; };
+		FA490F0F21DF5D2400C60C60 /* MedicationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA490F0D21DF5D2400C60C60 /* MedicationTableViewCell.swift */; };
+		FA490F1021DF5D2400C60C60 /* MedicationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA490F0E21DF5D2400C60C60 /* MedicationTableViewCell.xib */; };
+		FA4CEBE321F3C68300E5D34B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4CEBE221F3C68300E5D34B /* Launch Screen.storyboard */; };
 		FA4D0DD821D2FD70003D1331 /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D0DD721D2FD70003D1331 /* TrackerViewController.swift */; };
 		FA4D0DDB21D314A0003D1331 /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D0DD921D314A0003D1331 /* TrackerCollectionViewCell.swift */; };
 		FA4D0DDC21D314A0003D1331 /* TrackerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4D0DDA21D314A0003D1331 /* TrackerCollectionViewCell.xib */; };
@@ -24,6 +31,7 @@
 		FA4D0E1621D41278003D1331 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D0E1521D41278003D1331 /* ConnectViewController.swift */; };
 		FA4D0E1821D413C6003D1331 /* ContactData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D0E1721D413C6003D1331 /* ContactData.swift */; };
 		FA4D8A5921CF3ECD00FFA9D4 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */; };
+		FA551C8A21EB9A490014ADF2 /* GetCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA551C8921EB9A490014ADF2 /* GetCredentials.swift */; };
 		FA59220921DAA190009F74AD /* AllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59220821DAA190009F74AD /* AllViewController.swift */; };
 		FA59220B21DAA2F1009F74AD /* AllCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59220A21DAA2F1009F74AD /* AllCategories.swift */; };
 		FA6981B521D8D417000BBF9A /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6981B321D8D417000BBF9A /* HistoryTableViewCell.swift */; };
@@ -38,14 +46,14 @@
 		FA88282F21CD75B400513343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88282D21CD75B400513343 /* Main.storyboard */; };
 		FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA88283021CD75B400513343 /* Telemed.xcdatamodeld */; };
 		FA88283421CD75B600513343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA88283321CD75B600513343 /* Assets.xcassets */; };
-		FA88283721CD75B600513343 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA88283521CD75B600513343 /* LaunchScreen.storyboard */; };
 		FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284721CD861D00513343 /* RegisterViewController.swift */; };
 		FA88284A21CD863200513343 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284921CD863200513343 /* LoginViewController.swift */; };
-		FA88284C21CD865900513343 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284B21CD865900513343 /* HomeViewController.swift */; };
 		FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88284D21CD868800513343 /* WelcomeViewController.swift */; };
 		FA88285221CE377D00513343 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88285021CE377D00513343 /* HomeTableViewCell.swift */; };
 		FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA88285121CE377D00513343 /* HomeTableViewCell.xib */; };
 		FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB662F021CE46C300297FCD /* GoogleService-Info.plist */; };
+		FADF0A2E21F393EB00648B65 /* FAQInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADF0A2D21F393EB00648B65 /* FAQInfoViewController.swift */; };
+		FADF0A3021F3BD8B00648B65 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADF0A2F21F3BD8B00648B65 /* LanguageViewController.swift */; };
 		FAED2F1521DD3A4C006A943F /* TextonlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F1321DD3A4C006A943F /* TextonlyTableViewCell.swift */; };
 		FAED2F1621DD3A4C006A943F /* TextonlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAED2F1421DD3A4C006A943F /* TextonlyTableViewCell.xib */; };
 		FAED2F1921DE216F006A943F /* RecordsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED2F1721DE216F006A943F /* RecordsTableViewCell.swift */; };
@@ -66,6 +74,13 @@
 		FA490EFD21DE76C900C60C60 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		FA490F0121DEB26C00C60C60 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FA490F0321DF469C00C60C60 /* TutorialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialsViewController.swift; sourceTree = "<group>"; };
+		FA490F0521DF52B300C60C60 /* FAQSubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQSubViewController.swift; sourceTree = "<group>"; };
+		FA490F0721DF5BC200C60C60 /* FAQTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQTableViewCell.swift; sourceTree = "<group>"; };
+		FA490F0821DF5BC200C60C60 /* FAQTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQTableViewCell.xib; sourceTree = "<group>"; };
+		FA490F0D21DF5D2400C60C60 /* MedicationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTableViewCell.swift; sourceTree = "<group>"; };
+		FA490F0E21DF5D2400C60C60 /* MedicationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicationTableViewCell.xib; sourceTree = "<group>"; };
+		FA4CEBE221F3C68300E5D34B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		FA4D0DD721D2FD70003D1331 /* TrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
 		FA4D0DD921D314A0003D1331 /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA4D0DDA21D314A0003D1331 /* TrackerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackerCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -75,6 +90,7 @@
 		FA4D0E1521D41278003D1331 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		FA4D0E1721D413C6003D1331 /* ContactData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactData.swift; sourceTree = "<group>"; };
 		FA4D8A5821CF3ECD00FFA9D4 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		FA551C8921EB9A490014ADF2 /* GetCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCredentials.swift; sourceTree = "<group>"; };
 		FA59220821DAA190009F74AD /* AllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllViewController.swift; sourceTree = "<group>"; };
 		FA59220A21DAA2F1009F74AD /* AllCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategories.swift; sourceTree = "<group>"; };
 		FA6981B321D8D417000BBF9A /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -90,15 +106,15 @@
 		FA88282E21CD75B400513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA88283121CD75B400513343 /* Telemed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Telemed.xcdatamodel; sourceTree = "<group>"; };
 		FA88283321CD75B600513343 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FA88283621CD75B600513343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA88283821CD75B600513343 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA88284721CD861D00513343 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		FA88284921CD863200513343 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		FA88284B21CD865900513343 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FA88284D21CD868800513343 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		FA88285021CE377D00513343 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FA88285121CE377D00513343 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		FAB662F021CE46C300297FCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FADF0A2D21F393EB00648B65 /* FAQInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQInfoViewController.swift; sourceTree = "<group>"; };
+		FADF0A2F21F3BD8B00648B65 /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
 		FAED2F1321DD3A4C006A943F /* TextonlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextonlyTableViewCell.swift; sourceTree = "<group>"; };
 		FAED2F1421DD3A4C006A943F /* TextonlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextonlyTableViewCell.xib; sourceTree = "<group>"; };
 		FAED2F1721DE216F006A943F /* RecordsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsTableViewCell.swift; sourceTree = "<group>"; };
@@ -167,7 +183,7 @@
 				FA88283F21CD7A9300513343 /* View */,
 				FA88283E21CD7A2800513343 /* Model */,
 				FA88283321CD75B600513343 /* Assets.xcassets */,
-				FA88283521CD75B600513343 /* LaunchScreen.storyboard */,
+				FA4CEBE221F3C68300E5D34B /* Launch Screen.storyboard */,
 			);
 			path = Telemed;
 			sourceTree = "<group>";
@@ -184,6 +200,7 @@
 				FA3AC73B21DAA39B00D7AEF4 /* AllItems.swift */,
 				FAED2F2121DE2840006A943F /* RecordsData.swift */,
 				FAED2F2321DE3729006A943F /* Credentials.swift */,
+				FA551C8921EB9A490014ADF2 /* GetCredentials.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,9 +216,8 @@
 		FA88284021CD7AA100513343 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FA88284B21CD865900513343 /* HomeViewController.swift */,
-				FA88282921CD75B400513343 /* AppDelegate.swift */,
 				FA88284721CD861D00513343 /* RegisterViewController.swift */,
+				FA88282921CD75B400513343 /* AppDelegate.swift */,
 				FA88284921CD863200513343 /* LoginViewController.swift */,
 				FA88284D21CD868800513343 /* WelcomeViewController.swift */,
 				FA76ABE521D18751001E1689 /* ProfileViewController.swift */,
@@ -213,8 +229,12 @@
 				FA59220821DAA190009F74AD /* AllViewController.swift */,
 				FAED2F1F21DE251A006A943F /* RecordsViewController.swift */,
 				FA490EFD21DE76C900C60C60 /* RootViewController.swift */,
-				FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */,
 				FA490F0121DEB26C00C60C60 /* SettingsViewController.swift */,
+				FA490F0321DF469C00C60C60 /* TutorialsViewController.swift */,
+				FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */,
+				FA490F0521DF52B300C60C60 /* FAQSubViewController.swift */,
+				FADF0A2D21F393EB00648B65 /* FAQInfoViewController.swift */,
+				FADF0A2F21F3BD8B00648B65 /* LanguageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -236,6 +256,10 @@
 				FAED2F1421DD3A4C006A943F /* TextonlyTableViewCell.xib */,
 				FAED2F1721DE216F006A943F /* RecordsTableViewCell.swift */,
 				FAED2F1821DE216F006A943F /* RecordsTableViewCell.xib */,
+				FA490F0721DF5BC200C60C60 /* FAQTableViewCell.swift */,
+				FA490F0821DF5BC200C60C60 /* FAQTableViewCell.xib */,
+				FA490F0D21DF5D2400C60C60 /* MedicationTableViewCell.swift */,
+				FA490F0E21DF5D2400C60C60 /* MedicationTableViewCell.xib */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -312,7 +336,9 @@
 				FA4D0E1421D40AF3003D1331 /* ContactTableViewCell.xib in Resources */,
 				FA4D0DDC21D314A0003D1331 /* TrackerCollectionViewCell.xib in Resources */,
 				FAB662F121CE46C400297FCD /* GoogleService-Info.plist in Resources */,
-				FA88283721CD75B600513343 /* LaunchScreen.storyboard in Resources */,
+				FA490F1021DF5D2400C60C60 /* MedicationTableViewCell.xib in Resources */,
+				FA4CEBE321F3C68300E5D34B /* Launch Screen.storyboard in Resources */,
+				FA490F0A21DF5BC200C60C60 /* FAQTableViewCell.xib in Resources */,
 				FA88283421CD75B600513343 /* Assets.xcassets in Resources */,
 				FAED2F1A21DE216F006A943F /* RecordsTableViewCell.xib in Resources */,
 				FA88285321CE377D00513343 /* HomeTableViewCell.xib in Resources */,
@@ -408,13 +434,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA59220B21DAA2F1009F74AD /* AllCategories.swift in Sources */,
-				FA88284C21CD865900513343 /* HomeViewController.swift in Sources */,
 				FA490F0221DEB26C00C60C60 /* SettingsViewController.swift in Sources */,
 				FA4D0DDE21D36C2B003D1331 /* TrackerInfoViewController.swift in Sources */,
 				FA88284A21CD863200513343 /* LoginViewController.swift in Sources */,
 				FA0E47F921D738E6003C23C9 /* UpdatedData.swift in Sources */,
 				FA76ABE621D18751001E1689 /* ProfileViewController.swift in Sources */,
+				FADF0A2E21F393EB00648B65 /* FAQInfoViewController.swift in Sources */,
+				FA551C8A21EB9A490014ADF2 /* GetCredentials.swift in Sources */,
 				FAED2F1521DD3A4C006A943F /* TextonlyTableViewCell.swift in Sources */,
+				FADF0A3021F3BD8B00648B65 /* LanguageViewController.swift in Sources */,
 				FA77E78221D55823004AD84A /* Items.swift in Sources */,
 				FA0E47FB21D73FA5003C23C9 /* SyncData.swift in Sources */,
 				FA490F0021DEA74B00C60C60 /* FAQViewController.swift in Sources */,
@@ -427,14 +455,18 @@
 				FA0E47EF21D55CF7003C23C9 /* Trackers.swift in Sources */,
 				FAED2F1921DE216F006A943F /* RecordsTableViewCell.swift in Sources */,
 				FA88284821CD861D00513343 /* RegisterViewController.swift in Sources */,
+				FA490F0921DF5BC200C60C60 /* FAQTableViewCell.swift in Sources */,
 				FA4D0E1621D41278003D1331 /* ConnectViewController.swift in Sources */,
 				FA3AC73C21DAA39B00D7AEF4 /* AllItems.swift in Sources */,
 				FA490EFE21DE76C900C60C60 /* RootViewController.swift in Sources */,
 				FA4D0E1321D40AF3003D1331 /* ContactTableViewCell.swift in Sources */,
 				FA6981B521D8D417000BBF9A /* HistoryTableViewCell.swift in Sources */,
 				FA6981B821D8D699000BBF9A /* ExaminationHistoryViewController.swift in Sources */,
+				FA490F0F21DF5D2400C60C60 /* MedicationTableViewCell.swift in Sources */,
 				FA59220921DAA190009F74AD /* AllViewController.swift in Sources */,
 				FA88284E21CD868800513343 /* WelcomeViewController.swift in Sources */,
+				FA490F0621DF52B300C60C60 /* FAQSubViewController.swift in Sources */,
+				FA490F0421DF469C00C60C60 /* TutorialsViewController.swift in Sources */,
 				FA88282A21CD75B400513343 /* AppDelegate.swift in Sources */,
 				FA88283221CD75B400513343 /* Telemed.xcdatamodeld in Sources */,
 				FA4D0E1821D413C6003D1331 /* ContactData.swift in Sources */,
@@ -452,14 +484,6 @@
 				FA88282E21CD75B400513343 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FA88283521CD75B600513343 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA88283621CD75B600513343 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -587,6 +611,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JJ8NNCHU9F;
 				INFOPLIST_FILE = Telemed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -605,6 +630,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JJ8NNCHU9F;
 				INFOPLIST_FILE = Telemed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

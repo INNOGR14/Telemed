@@ -56,8 +56,7 @@ class AllViewController: UIViewController {
                 
                 for item in currentCategory.allItems {
                     
-                    let time = Calendar.current.dateComponents([.hour, .minute, .second], from: item.datetime)
-                    let formattedTime = item.datetime + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                    let formattedTime = dayFormatter.string(from: item.datetime)
                     if tableDict == nil {
                         tableDict = [["date" : formattedTime, "count" : 1]]
                     }
@@ -65,7 +64,7 @@ class AllViewController: UIViewController {
                         var appendable = true
                         
                         for (index, element) in tableDict!.enumerated() {
-                            if element["date"] as! Date == formattedTime {
+                            if element["date"] as! String == formattedTime {
                                 appendable = false
                                 tableDict![index]["count"] = tableDict![index]["count"] as! Int + 1
                             }
@@ -75,7 +74,7 @@ class AllViewController: UIViewController {
                         }
                     }
                     if tableDict != nil {
-                        tableDict = tableDict!.sorted(by: { $0["date"] as! Date > $1["date"] as! Date})
+                        tableDict = tableDict!.sorted(by: { dayFormatter.date(from: $0["date"] as! String)! > dayFormatter.date(from: $1["date"] as! String)! })
                     }
                 }
             }
@@ -85,9 +84,8 @@ class AllViewController: UIViewController {
                 timeFormatter.dateFormat = "EEE dd hh:mm a"
                 
                 for item in currentCategory.allItems {
-                    
-                    let time = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: item.datetime)
-                    let formattedTime = item.datetime + TimeInterval(-(time.day! * 86400 + time.hour! * 3600 + time.minute! * 60 + time.second!))
+
+                    let formattedTime = dayFormatter.string(from: item.datetime)
                     if tableDict == nil {
                         tableDict = [["date" : formattedTime, "count" : 1]]
                     }
@@ -95,17 +93,18 @@ class AllViewController: UIViewController {
                         var appendable = true
                         
                         for (index, element) in tableDict!.enumerated() {
-                            if element["date"] as! Date == formattedTime {
+                            if element["date"] as! String == formattedTime {
                                 appendable = false
                                 tableDict![index]["count"] = tableDict![index]["count"] as! Int + 1
                             }
                         }
                         if appendable {
                             tableDict!.append(["date" : formattedTime, "count" : 1])
+                            print(formattedTime)
                         }
                     }
                     if tableDict != nil {
-                        tableDict = tableDict!.sorted(by: { $0["date"] as! Date > $1["date"] as! Date})
+                        tableDict = tableDict!.sorted(by: { dayFormatter.date(from: $0["date"] as! String)! > dayFormatter.date(from: $1["date"] as! String)! })
                     }
                 }
             }
@@ -181,16 +180,21 @@ extension AllViewController: UITableViewDelegate, UITableViewDataSource {
                 startingIndex += dict[i]["count"] as! Int
             }
         }
-        cell.date.text = " " + timeFormatter.string(from: items?[indexPath.row + startingIndex].datetime ?? Date())
-        cell.info.text = " " + (items?[indexPath.row].notes ?? "No" + titleLabel.text!)
+        if (items?.count ?? 0) - 1 >= startingIndex + indexPath.row {
+            cell.date.text = " " + timeFormatter.string(from: items?[indexPath.row + startingIndex].datetime ?? Date())
+            cell.info.text = " " + (items?[indexPath.row + startingIndex].notes ?? "No" + titleLabel.text!)
+        }
+        else {
+            cell.date.text = " " + ("No " + titleLabel.text!)
+            cell.info.text = " " + ("No " + titleLabel.text!)
+        }
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if let dict = tableDict?[section] {
-            let date = dict["date"] as! Date
-            return dayFormatter.string(from: date)
+            return dict["date"] as! String
         }
         else {
             return "No section"

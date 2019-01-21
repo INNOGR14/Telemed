@@ -16,28 +16,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var loginInfo : [String : Any] = ["state" : true, "username" : "asdfj", "password" : "asdfj"]
+    var loginStatus = false
+    var language = "english"
+    
+    let server = Credentials.server
+    
+    let defaults = UserDefaults.standard
+    
+    enum KeychainError: Error {
+        case noPassword
+        case unexpectedPasswordData
+        case unhandledError(status: OSStatus)
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        FirebaseApp.configure()
         
+//        let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
+//                                    kSecAttrServer as String: server,
+//                                    kSecMatchLimit as String: kSecMatchLimitOne,
+//                                    kSecReturnAttributes as String: true,
+//                                    kSecReturnData as String: true]
+//
+//        var item: CFTypeRef?
+//        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        
+//        do {
+//            guard status != errSecItemNotFound else { throw KeychainError.noPassword }
+//            guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
+//            guard let existingItem = item as? [String : Any],
+//                let passwordData = existingItem[kSecValueData as String] as? Data,
+//                let password = String(data: passwordData, encoding: String.Encoding.utf8),
+//                let account = existingItem[kSecAttrAccount as String] as? String
+//                else {
+//                    throw KeychainError.unexpectedPasswordData
+//                }
+//            let credentials = Credentials(username: account, password: password)
+//            loginInfo["username"] = credentials.username
+//            loginInfo["password"] = credentials.password
+//        } catch {
+//            print(error)
+//        }
+        
+        
         let realm = try! Realm()
 //
 //        let newTracker = Trackers()
 //        newTracker.name = "test2"
+//        let anotherTracker = Trackers()
+//        anotherTracker.name = "test1"
 //        do {
 //            try realm.write {
 //                realm.add(newTracker)
+//                realm.add(anotherTracker)
 //            }
 //        } catch {
 //            print("Error adding tracker \(error)")
 //        }
 
-        print(realm.configuration.fileURL)
+        print(realm.configuration.fileURL!)
         
-        SyncData.retrieveTrackers(username: loginInfo["username"] as! String, password: loginInfo["password"] as! String, realm: realm)
-        SyncData.syncUpdate(username: loginInfo["username"] as! String, password: loginInfo["password"] as! String, realm: realm, fromServer: true)
+        loginStatus = defaults.bool(forKey: "loginStatus")
+        language = defaults.string(forKey: "language") ?? "english"
+
+        let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "rootView") as! RootViewController
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = initialViewControlleripad
+        self.window?.makeKeyAndVisible()
+        
+        if !loginStatus {
+            let mainLoginVC: UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "login")
+            mainLoginVC.modalPresentationStyle = .fullScreen
+            initialViewControlleripad.present(mainLoginVC, animated: false)
+        }
         
         return true
     }
@@ -63,8 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        loginInfo["state"] = false
-        loginInfo["userID"] = ""
         self.saveContext()
     }
 

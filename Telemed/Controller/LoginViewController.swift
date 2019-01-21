@@ -22,6 +22,10 @@ class LoginViewController: UIViewController {
     
     let server = Credentials.server
     
+    let defaults = UserDefaults.standard
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     enum KeychainError: Error {
         case noPassword
         case unexpectedPasswordData
@@ -36,17 +40,19 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        SVProgressHUD.show()
         
+        
+        SVProgressHUD.show()
+
         let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                                     kSecAttrServer as String: server,
                                     kSecMatchLimit as String: kSecMatchLimitOne,
                                     kSecReturnAttributes as String: true,
                                     kSecReturnData as String: true]
-        
+
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
+
         do {
             guard status != errSecItemNotFound else { throw KeychainError.noPassword }
             guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
@@ -58,17 +64,17 @@ class LoginViewController: UIViewController {
                     throw KeychainError.unexpectedPasswordData
             }
             let credentials = Credentials(username: account, password: password)
-            
+
             let parametersDict : [String : Any] = ["username" : credentials.username, "password" : credentials.password]
-            Alamofire.request("https://ide50-nobodysp.cs50.io:8080/userLogin", method: .post, parameters: parametersDict, encoding: JSONEncoding.default).responseJSON {
+            Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/userLogin", method: .post, parameters: parametersDict, encoding: JSONEncoding.default).responseJSON {
                 response in
-                
+
                 switch response.result {
-                    
+
                 case .success(let result):
                     if JSON(result)["result"].bool! {
                         print("Hello")
-                        //perform segue
+                        self.loginSuccess()
                     }
                     else {
                         print(response)
@@ -92,16 +98,18 @@ class LoginViewController: UIViewController {
                         self.viewDidLoad()
                     }
                     alertView.addButton("Cancel") {
-                        
+
                     }
                     alertView.showError("Connection error", subTitle: "Please try again later")
                 }
             }
         } catch {
             print(error)
-            SCLAlertView().showNotice("You're not signed in", subTitle: "Please sign in")
+            SCLAlertView().showNotice("You're logged out", subTitle: "Please sign in")
         }
         
+        
+
         SVProgressHUD.dismiss()
     }
     
@@ -125,7 +133,7 @@ class LoginViewController: UIViewController {
         
         let parametersDict : [String : Any] = ["username" : emailTextField.text!, "password" : passwordTextField.text!]
         
-        Alamofire.request("https://ide50-nobodysp.cs50.io:8080/userLogin", method: .post, parameters: parametersDict, encoding: JSONEncoding.default).responseJSON { (response) in
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/userLogin", method: .post, parameters: parametersDict, encoding: JSONEncoding.default).responseJSON { (response) in
             
             print(response)
             
@@ -145,6 +153,8 @@ class LoginViewController: UIViewController {
                         SCLAlertView().showError("Internal system error", subTitle: "Please try again")
                     }
                     
+
+                    self.loginSuccess()
                 }
                 else {
                     
@@ -183,8 +193,16 @@ class LoginViewController: UIViewController {
         
     }
     
-    func callSegue() {
-        performSegue(withIdentifier: "goToHome", sender: self)
+    func loginSuccess() {
+        appDelegate.loginStatus = true
+        defaults.set(appDelegate.loginStatus, forKey: "loginStatus")
+        defaults.synchronize()
+        
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let centerVC = mainStoryBoard.instantiateViewController(withIdentifier: "rootView") as! RootViewController
+        appDelegate.window!.rootViewController = centerVC
+        appDelegate.window!.makeKeyAndVisible()
+        
     }
     
     func configureKeychain() throws {

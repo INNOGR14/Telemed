@@ -21,6 +21,8 @@ class TrackerViewController: UIViewController {
     
     let realm = try! Realm()
     
+    var credentials : Credentials?
+    
     var trackers : Results<Trackers>?
     
     override func viewDidLoad() {
@@ -32,6 +34,29 @@ class TrackerViewController: UIViewController {
         trackerCollectionView.delegate = self
         trackerCollectionView.dataSource = self
         trackerCollectionView.register(UINib(nibName: "TrackerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "trackerCell")
+        
+        do {
+            credentials = try GetCredentials.getUserPass()
+        } catch {
+            print("Error retrieving userpass: \(error)")
+        }
+        
+        if let credentials = credentials {
+            SyncData.retrieveTrackers(username: credentials.username, password: credentials.password, realm: realm) {
+                
+                result in
+                
+                switch result {
+                    
+                case true:
+                    self.trackerCollectionView.reloadData()
+                case false:
+                    print("No new tracker")
+                }
+            }
+            SyncData.syncItemUpdate(username: credentials.username, password: credentials.password, realm: realm, fromServer: true)
+            SyncData.syncTrackerUpdate(username: credentials.username, password: credentials.password, realm: realm)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,8 +104,6 @@ extension TrackerViewController : UICollectionViewDelegate, UICollectionViewData
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trackerCell", for: indexPath) as! TrackerCollectionViewCell
 
         if let name = trackers?[indexPath.row].name {
-            
-            print(name)
             let string = String(name.map { $0 == " " ? "\n" : $0 })
             cell.title.text =  string
             

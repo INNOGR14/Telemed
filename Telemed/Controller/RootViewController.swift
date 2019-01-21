@@ -79,7 +79,7 @@ class RootViewController: UIViewController {
         if finalVC != nil && currentVC != nil{
             if finalVC != currentVC {
                 if currentPage != sender.tag {
-                    let forward = currentPage > sender.tag
+                    let forward = currentPage < sender.tag
                     currentPage = sender.tag
                     cycle(from: currentVC, to: finalVC, forward: forward)
                     animateSelectBar(currentPage)
@@ -134,11 +134,11 @@ class RootViewController: UIViewController {
                 case 1:
                     xPosition = 0
                 case 2:
-                    xPosition = self.nonCenterWidth
+                    xPosition = self.centerButton.frame.minX - self.nonCenterWidth
                 case 4:
-                    xPosition = self.centerWidth + self.nonCenterWidth * 2
+                    xPosition = self.centerButton.frame.maxX
                 case 5:
-                    xPosition = self.centerWidth + self.nonCenterWidth * 3
+                    xPosition = self.view.frame.maxX - self.nonCenterWidth
                 default:
                     print("hello")
                 }

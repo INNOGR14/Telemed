@@ -11,5 +11,5 @@ import Foundation
 struct Credentials {
     var username: String
     var password: String
-    static let server = "https://ide50-nobodysp.cs50.io:8080"
+    static let server = "https://ide50-nobodysp.legacy.cs50.io:8080"
 }

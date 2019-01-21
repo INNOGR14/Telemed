@@ -66,8 +66,8 @@ class HistoryTableViewCell: UITableViewCell {
         }
         else {
             
-            xaxis.axisMinimum = orderedItemsArray[0].datetime.timeIntervalSince1970
-            xaxis.axisMaximum = orderedItemsArray[orderedItemsArray.count - 1].datetime.timeIntervalSince1970
+            xaxis.axisMinimum = orderedItemsArray.first?.datetime.timeIntervalSince1970 ?? 0
+            xaxis.axisMaximum = orderedItemsArray.last?.datetime.timeIntervalSince1970 ?? 0
             xaxis.granularityEnabled = all
         }
         

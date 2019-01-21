@@ -23,12 +23,24 @@ class HomePageViewController: UIViewController {
     let realm = try! Realm()
     var categories : Results<AllCategories>?
     var selectedCategory : Results<AllCategories>?
+    var credentials : Credentials?
+    let defaults = UserDefaults.standard
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        var taskCategory : Results<AllCategories>?
+        var appointmentCategory : Results<AllCategories>?
+        var taskItems : Results<AllItems>?
+        var appointmentItems : Results<AllItems>?
+        
+        do {
+            credentials = try GetCredentials.getUserPass()
+        } catch {
+            print(error)
+        }
         
         profileButton.layer.cornerRadius = 10.0
         
@@ -42,10 +54,7 @@ class HomePageViewController: UIViewController {
         appointmentFormatter.pmSymbol = "PM"
         appointmentFormatter.dateFormat = "DD-MMM-YYYY hh:mm a"
         
-        var taskCategory : Results<AllCategories>?
-        var appointmentCategory : Results<AllCategories>?
-        var taskItems : Results<AllItems>?
-        var appointmentItems : Results<AllItems>?
+        
         
         categories = realm.objects(AllCategories.self)
         if let allCategories = categories {
@@ -60,6 +69,17 @@ class HomePageViewController: UIViewController {
                 taskTimeLabel.text = taskFormatter.string(from: taskItem.datetime)
                 taskInfoLabel.text = taskItem.notes
             }
+            let deleteItems = taskCategory!.first?.allItems.filter("datetime <= %@", Date())
+            if let deleteItems = deleteItems {
+                do {
+                    try realm.write {
+                        realm.delete(deleteItems)
+                    }
+                } catch {
+                    print("error deleting: \(error)")
+                }
+            }
+            
         }
         if appointmentCategory != nil {
             appointmentItems = appointmentCategory!.first?.allItems.filter("datetime >= %@", Date())
@@ -67,6 +87,16 @@ class HomePageViewController: UIViewController {
             if let appointmentItem = appointmentItems?.first {
                 appointmentTimeLabel.text = appointmentFormatter.string(from: appointmentItem.datetime)
                 appointmentInfoLabel.text = appointmentItem.notes
+            }
+            let deleteItems = appointmentCategory!.first?.allItems.filter("datetime <= %@", Date())
+            if let deleteItems = deleteItems {
+                do {
+                    try realm.write {
+                        realm.delete(deleteItems)
+                    }
+                } catch {
+                    print("error deleting: \(error)")
+                }
             }
         }
         
@@ -95,6 +125,38 @@ class HomePageViewController: UIViewController {
                 }
             }
         }
+        
+        SyncData.retrieveAll(username: credentials?.username ?? "", password: credentials?.password ?? "", realm: realm) {
+            
+            result in
+            
+            switch result {
+                
+            case true:
+                if taskCategory != nil {
+                    taskItems = taskCategory!.first?.allItems.filter("datetime >= %@", Date())
+                    taskItems = taskItems?.sorted(byKeyPath: "datetime", ascending: false)
+                    if let taskItem = taskItems?.first {
+                        self.taskTimeLabel.text = taskFormatter.string(from: taskItem.datetime)
+                        self.taskInfoLabel.text = taskItem.notes
+                    }
+                }
+                if appointmentCategory != nil {
+                    appointmentItems = appointmentCategory!.first?.allItems.filter("datetime >= %@", Date())
+                    appointmentItems = appointmentItems?.sorted(byKeyPath: "datetime", ascending: false)
+                    if let appointmentItem = appointmentItems?.first {
+                        self.appointmentTimeLabel.text = appointmentFormatter.string(from: appointmentItem.datetime)
+                        self.appointmentInfoLabel.text = appointmentItem.notes
+                    }
+                }
+                
+                SyncData.syncAllUpdate(username: self.credentials?.username ?? "", password: self.credentials?.password ?? "", realm: self.realm)
+            case false:
+                print("")
+            }
+        }
+        
+        SyncData.retrievePatientInfo(username: credentials?.username ?? "", password: credentials?.password ?? "", defaults: defaults)
     }
     
 

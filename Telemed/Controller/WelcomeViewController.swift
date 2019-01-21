@@ -19,7 +19,7 @@ let appDelegate = UIApplication.shared.delegate! as! AppDelegate
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if appDelegate.loginInfo["state"]! as! Bool == false {
+        if appDelegate.loginStatus as! Bool == false {
             authenticationWithTouchID()
         }
     }

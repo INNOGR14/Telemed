@@ -10,10 +10,28 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    
+    @IBOutlet weak var dobLabel: UILabel!
+    @IBOutlet weak var ageLabel: UILabel!
+    
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let name = defaults.string(forKey: "fullName") ?? "No data"
+        let id = defaults.integer(forKey: "userID")
+        
+        let dob = defaults.string(forKey: "birthdate") ?? "No data"
+        let age = defaults.string(forKey: "age") ?? "No data"
+        
+        nameLabel.text! += name
+        idLabel.text! += "\(id)"
+        
+        dobLabel.text! += dob
+        ageLabel.text! += age
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

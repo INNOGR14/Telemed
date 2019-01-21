@@ -15,12 +15,12 @@ class RecordsViewController: UIViewController {
     
     
     let realm = try! Realm()
-    var recordsData : Results<RecordsData>?
+    var recordsData : Results<Trackers>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recordsData = realm.objects(RecordsData.self)
+        recordsData = realm.objects(Trackers.self)
         
         recordsTable.delegate = self
         recordsTable.dataSource = self
@@ -47,7 +47,13 @@ extension RecordsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordsCell") as! RecordsTableViewCell
         cell.categoyLabel.text = recordsData?[indexPath.row].name ?? "No records"
-        cell.descriptionLabel.text = recordsData?[indexPath.row].data ?? "No records"
+        if let recordsData = recordsData {
+            cell.descriptionLabel.text = String(recordsData[indexPath.row].items.sorted(byKeyPath: "datetime", ascending: false).first?.data ?? 0)
+        }
+        else {
+            cell.descriptionLabel.text = "No records"
+        }
+        cell.layer.cornerRadius = 10.0
         return cell
     }
     
@@ -58,3 +64,4 @@ extension RecordsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+

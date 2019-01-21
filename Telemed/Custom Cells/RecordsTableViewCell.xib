@@ -20,22 +20,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXb-Y4-k7W">
-                        <rect key="frame" x="0.0" y="7" width="102.5" height="29.5"/>
+                        <rect key="frame" x="8" y="7" width="102.5" height="29.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjh-ko-et1">
-                        <rect key="frame" x="192.5" y="7" width="127.5" height="30"/>
+                        <rect key="frame" x="184.5" y="7" width="127.5" height="30"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="mjh-ko-et1" secondAttribute="trailing" id="WQ0-Os-kRN"/>
+                    <constraint firstAttribute="trailing" secondItem="mjh-ko-et1" secondAttribute="trailing" constant="8" id="WQ0-Os-kRN"/>
                     <constraint firstItem="eXb-Y4-k7W" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="czC-q2-bZX"/>
-                    <constraint firstItem="eXb-Y4-k7W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="daT-oa-zNP"/>
+                    <constraint firstItem="eXb-Y4-k7W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="daT-oa-zNP"/>
                     <constraint firstItem="mjh-ko-et1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hRQ-yJ-dYT"/>
                 </constraints>
             </tableViewCellContentView>
@@ -45,6 +46,7 @@
                 <outlet property="categoyLabel" destination="eXb-Y4-k7W" id="MBD-CQ-cR9"/>
                 <outlet property="descriptionLabel" destination="mjh-ko-et1" id="S1j-a6-ipa"/>
             </connections>
+            <point key="canvasLocation" x="132.80000000000001" y="107.94602698650675"/>
         </tableViewCell>
     </objects>
 </document>
