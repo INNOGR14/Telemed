@@ -70,6 +70,7 @@
 		FA0E47EE21D55CF7003C23C9 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		FA0E47F821D738E6003C23C9 /* UpdatedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedData.swift; sourceTree = "<group>"; };
 		FA0E47FA21D73FA5003C23C9 /* SyncData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncData.swift; sourceTree = "<group>"; };
+		FA15075221F7704D00B397AF /* Telemed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Telemed.entitlements; sourceTree = "<group>"; };
 		FA3AC73B21DAA39B00D7AEF4 /* AllItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllItems.swift; sourceTree = "<group>"; };
 		FA490EFD21DE76C900C60C60 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		FA490EFF21DEA74B00C60C60 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +177,7 @@
 		FA88282821CD75B400513343 /* Telemed */ = {
 			isa = PBXGroup;
 			children = (
+				FA15075221F7704D00B397AF /* Telemed.entitlements */,
 				FA88283821CD75B600513343 /* Info.plist */,
 				FAB662EF21CE468400297FCD /* Supporting Files */,
 				FA88284F21CE375300513343 /* Custom Cells */,
@@ -307,6 +309,11 @@
 				TargetAttributes = {
 					FA88282521CD75B400513343 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

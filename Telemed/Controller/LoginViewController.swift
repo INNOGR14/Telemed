@@ -173,7 +173,7 @@ class LoginViewController: UIViewController {
             }
             
             
-            
+            self.view.endEditing(true)
             SVProgressHUD.dismiss()
             
         }

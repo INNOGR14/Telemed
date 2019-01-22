@@ -61,7 +61,7 @@ class HistoryTableViewCell: UITableViewCell {
             
             xaxis.axisMinimum = minimum
             xaxis.axisMaximum = maximum
-            xaxis.granularityEnabled = !all
+            xaxis.granularityEnabled = all
             xaxis.granularity = interval
         }
         else {

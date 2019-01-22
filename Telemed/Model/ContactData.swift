@@ -13,5 +13,10 @@ class ContactData: Object {
     
     @objc dynamic var name = ""
     @objc dynamic var phoneNum = ""
+    @objc dynamic var synced = false
+    
+    override static func primaryKey() -> String? {
+        return "name"
+    }
     
 }

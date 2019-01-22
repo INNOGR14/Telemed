@@ -26,7 +26,7 @@ class ExaminationHistoryViewController: UIViewController {
     let realm = try! Realm()
     var credentials : Credentials?
     var trackers : Results<Trackers>?
-    let time = Calendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date())
+    var time = Calendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date())
     var minimum : Double = 0
     var maximum : Double = 0
     var interval : Double = 0
@@ -43,7 +43,7 @@ class ExaminationHistoryViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        time = Calendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date())
         do {
             credentials = try GetCredentials.getUserPass()
         } catch {
@@ -81,30 +81,30 @@ class ExaminationHistoryViewController: UIViewController {
             
         case .day:
             all = false
-            minimum = Date(timeIntervalSinceNow: -86400).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+            minimum = Date(timeIntervalSinceNow: 0).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
             maximum = minimum + 86400
             numberOfIntervals = 8
             interval = (maximum - minimum) / numberOfIntervals
             customFormatter = "HH:mm"
         case .week:
             all = false
-            minimum = Date(timeIntervalSinceNow: -86400 * 7).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+            minimum = Date(timeIntervalSinceNow: -86400 * 6).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
             maximum = minimum + 86400 * 7
             interval = 86400 * 2
             customFormatter = "dd/MM"
         case .month:
             all = false
             if time.month! == 1 || time.month! == 3 || time.month! == 5 || time.month! == 7 || time.month! == 8 || time.month! == 10 || time.month! == 12 {
-                minimum = Date(timeIntervalSinceNow: -86400 * 31).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                minimum = Date(timeIntervalSinceNow: -86400 * 30).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
                 maximum = minimum + 86400 * 31
             }
             else if time.month! == 2 {
-                minimum = Date(timeIntervalSinceNow: -86400 * 28).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                minimum = Date(timeIntervalSinceNow: -86400 * 27).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
                 maximum = minimum + 86400 * 28
                 
             }
             else {
-                minimum = Date(timeIntervalSinceNow: -86400 * 30).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+                minimum = Date(timeIntervalSinceNow: -86400 * 29).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
                 maximum = minimum + 86400 * 30
             }
             
@@ -112,7 +112,7 @@ class ExaminationHistoryViewController: UIViewController {
             interval = 86400*5
         case .year:
             all = false
-            minimum = Date(timeIntervalSinceNow: -86400 * 365).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
+            minimum = Date(timeIntervalSinceNow: -86400 * 364).timeIntervalSince1970 + TimeInterval(-(time.hour! * 3600 + time.minute! * 60 + time.second!))
             maximum = minimum + 86400 * 365
             interval = 86400 * 61
             customFormatter = "MMM"

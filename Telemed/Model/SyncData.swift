@@ -53,6 +53,7 @@ class SyncData {
                                     
                                     let newItem = Items()
                                     let datetime = itemDict!["datetime"] as! String
+                                    print(datetime)
                                     newItem.datetime = dateFormatter.date(from: datetime)!
                                     newItem.creator = itemDict!["creator"] as! String
                                     newItem.data = Double(itemDict!["data"] as! String)!
@@ -481,6 +482,7 @@ class SyncData {
                                             print("Error saving new task to realm form server \(error)")
                                         }
                                     }
+                                    
                                 }
                             }
                         }
@@ -637,11 +639,13 @@ class SyncData {
                     if let contentDict = contentDict {
                         
                         defaults.set(contentDict["fullName"] as! String, forKey: "fullName")
-                        defaults.set(contentDict["userID"] as! Int, forKey: "userID")
+                        defaults.set(contentDict["patientID"] as! Int, forKey: "patientID")
+                        defaults.set(contentDict["sex"] as! String, forKey: "sex")
+                        defaults.set(contentDict["occupation"] as! String, forKey: "occupation")
                         
                         var birthdate = contentDict["birthdate"] as? String
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MM-dd-yyyy"
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
                         let formattedBirthdate = dateFormatter.date(from: birthdate ?? "") ?? Date()
                         let finalFormatter = DateFormatter()
                         finalFormatter.dateFormat = "dd-MMM-yyyy"
@@ -764,5 +768,136 @@ class SyncData {
             }
         }
         
+    }
+    
+    static func retrieveContacts(username : String, password : String, realm : Realm, completion: @escaping (_ result: Bool) -> ()) {
+        
+        let retrieveContactsParam : [String : Any] = ["username" : username, "password" : password]
+        
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/retrieveContacts", method: .post, parameters: retrieveContactsParam, encoding: JSONEncoding.default).responseJSON {
+            
+            response in
+            
+            switch response.result {
+                
+                
+            case .success(let result):
+                
+                if JSON(result)["result"].bool! {
+                    
+                    var contactData : Results<ContactData>?
+                    
+                    contactData = realm.objects(ContactData.self)
+                    
+                    if let contactData = contactData {
+                        
+                        let retrievedArray = JSON(result)["content"].array ?? []
+                        
+                        for retrievedContact in retrievedArray {
+                            
+                            if let retrievedContact = retrievedContact.dictionaryObject {
+                                
+                                let contactName = retrievedContact["contactName"] as! String
+                                let contactInfo = retrievedContact["contactInfo"] as! String
+                                
+                                var appendable = true
+                                
+                                for contact in contactData {
+                                    
+                                    if contact.name == contactName {
+                                        appendable = false
+                                        break
+                                    }
+                                }
+                                
+                                if appendable {
+                                    
+                                    do {
+                                        try realm.write {
+                                            let newContact = ContactData()
+                                            newContact.name = contactName
+                                            newContact.phoneNum = contactInfo
+                                            newContact.synced = false
+                                            realm.add(newContact)
+                                        }
+                                    } catch {
+                                        print("Error adding contacts: \(error)")
+                                    }
+                                }
+                                else {
+                                    let filteredContact = contactData.filter("name CONTAINS %@", contactName).first
+                                    do {
+                                        try realm.write {
+                                            filteredContact?.phoneNum = contactInfo
+                                            filteredContact?.synced = false
+                                        }
+                                    } catch {
+                                        print("Error updating contacts: \(error)")
+                                    }
+                                }
+                                completion(true)
+                            }
+                        }
+                    }
+                }
+                else {
+                    print(result)
+                }
+            case .failure(let error):
+                print("Error connecting to retrieveContacts: \(error)")
+                completion(false)
+            }
+        }
+
+    }
+    
+    static func syncUpdateContacts(username: String, password: String, realm: Realm) {
+        
+        var unsyncedContactArray : [String]?
+        
+        let allContacts : Results<ContactData>
+        allContacts = realm.objects(ContactData.self)
+        
+        let unsyncedContacts = allContacts.filter("synced == %@", NSNumber(booleanLiteral: false))
+        
+        for unsyncedContact in unsyncedContacts {
+            if unsyncedContactArray == nil {
+                unsyncedContactArray = [unsyncedContact.name]
+            }
+            else {
+                unsyncedContactArray!.append(unsyncedContact.name)
+            }
+        }
+        
+        let syncUpdateContactsParam : [String : Any] = ["username" : username, "password" : password, "updatedContacts" : unsyncedContactArray ?? []]
+        
+        Alamofire.request("https://ide50-nobodysp.legacy.cs50.io:8080/syncUpdateContacts", method: .post, parameters: syncUpdateContactsParam, encoding: JSONEncoding.default).responseJSON {
+            
+            response in
+            
+            switch response.result {
+                
+                
+            case .success(let result):
+                
+                if JSON(result)["result"].bool! {
+                    
+                    for unsyncedContact in unsyncedContacts {
+                        
+                        do {
+                            try realm.write {
+                                unsyncedContact.synced = true
+                            }
+                        } catch {
+                            print("Error updating unsyncedContacts: \(error)")
+                        }
+                    }
+                }
+                
+            case .failure(let error):
+                print("Error connecting to syncUpdateContacts: \(error)")
+            }
+            
+        }
     }
 }

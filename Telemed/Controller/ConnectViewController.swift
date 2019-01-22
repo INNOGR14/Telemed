@@ -15,6 +15,7 @@ class ConnectViewController: UIViewController {
     let realm = try! Realm()
     
     var contacts : Results<ContactData>?
+    var credentials : Credentials?
 
     @IBOutlet weak var connectTableView: UITableView!
     @IBOutlet weak var emergencyView: UIView!
@@ -30,6 +31,26 @@ class ConnectViewController: UIViewController {
         connectTableView.register(UINib(nibName: "ContactTableViewCell", bundle: nil), forCellReuseIdentifier: "connectCell")
         
 //        addContact()
+        do {
+            credentials = try GetCredentials.getUserPass()
+        } catch {
+            print("Error retrieving credentails: \(error)")
+        }
+        
+        if let credentials = credentials {
+            SyncData.retrieveContacts(username: credentials.username, password: credentials.password, realm: realm) {
+                
+                result in
+                
+                if result {
+                    SyncData.syncUpdateContacts(username: credentials.username, password: credentials.password, realm: self.realm)
+                    self.connectTableView.reloadData()
+                    self.loadContacts()
+                    self.configureTable(self.connectTableView)
+                }
+            }
+        }
+        
         loadContacts()
         configureTable(connectTableView)
         

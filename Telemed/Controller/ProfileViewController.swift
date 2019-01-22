@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var sexLabel: UILabel!
+    @IBOutlet weak var occupationLabel: UILabel!
     
     @IBOutlet weak var dobLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
@@ -23,13 +25,15 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         let name = defaults.string(forKey: "fullName") ?? "No data"
         let id = defaults.integer(forKey: "userID")
-        
+        let sex = defaults.string(forKey: "sex") ?? "No data"
+        let occupation = defaults.string(forKey: "occupation") ?? "No data"
         let dob = defaults.string(forKey: "birthdate") ?? "No data"
         let age = defaults.string(forKey: "age") ?? "No data"
         
         nameLabel.text! += name
         idLabel.text! += "\(id)"
-        
+        sexLabel.text! += sex
+        occupationLabel.text! += occupation
         dobLabel.text! += dob
         ageLabel.text! += age
     }

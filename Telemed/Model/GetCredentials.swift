@@ -20,7 +20,7 @@ class GetCredentials {
     
     
     static func getUserPass() throws -> Credentials {
-        SVProgressHUD.show()
+//        SVProgressHUD.show()
         
         var credentials : Credentials?
         
@@ -47,9 +47,9 @@ class GetCredentials {
         
         } catch {
             print(error)
-            SCLAlertView().showNotice("You're not signed in", subTitle: "Please sign in")
+//            SCLAlertView().showNotice("You're not signed in", subTitle: "Please sign in")
         }
-        SVProgressHUD.dismiss()
+//        SVProgressHUD.dismiss()
         if let credentials = credentials {
             return credentials
         }

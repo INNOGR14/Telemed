@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 import Firebase
 import RealmSwift
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        MSAppCenter.start("40f2a167-a199-4b01-ac8e-bf43c32e2104", withServices:[ MSAnalytics.self, MSCrashes.self ])
+        
         // Override point for customization after application launch.
 //        FirebaseApp.configure()
         
